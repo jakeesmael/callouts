@@ -1,3 +1,7 @@
-#content{
-    display:block
+#statistics {
+	background-color: #F4F4F4;
+}
+
+#match_header {
+	text-align: center;
 }
