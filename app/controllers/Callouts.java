@@ -7,6 +7,7 @@ import play.libs.Crypto;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import play.mvc.Http;
 
 import java.util.List;
 
@@ -114,6 +115,9 @@ public class Callouts extends Controller {
 
 	@Security.Authenticated(Secured.class)
 	public static Result newsfeed() {
-		return ok(views.html.newsfeed.render());
+        Http.Cookie sessionCookie = request().cookies().get("session_id");
+        String username = Crypto.decryptAES(sessionCookie.value());
+        User user = UserController.getUserByUsername(username);
+        return ok(views.html.newsfeed.render(user));
 	}
 }
