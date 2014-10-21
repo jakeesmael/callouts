@@ -10,3 +10,5 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET			/login											controllers.Callouts.login()
 GET			/authenticate								controllers.Callouts.authenticate()
+GET			/signup											controllers.Callouts.signUpGet()
+POST		/signup											controllers.Callouts.signUpPost()

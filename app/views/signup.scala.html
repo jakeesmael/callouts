@@ -1,0 +1,22 @@
+@(signUpError: Boolean)
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+	<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+	<script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
+	</head>
+	<body>
+		@if(signUpError == true) {
+			<p>Error signing up</p>
+		}
+		@helper.form(action = routes.Callouts.signUpPost()) {
+			<input type="text" name="username" required><br>
+			<input type="password" name="password" required><br>
+			<input type="submit" value="Submit">
+		}
+	</body>
+</html>
