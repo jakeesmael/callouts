@@ -1,10 +1,8 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Query;
-import com.avaje.ebean.RawSql;
-import com.avaje.ebean.RawSqlBuilder;
+import com.avaje.ebean.*;
 import models.User;
+import org.mindrot.jbcrypt.BCrypt;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
@@ -31,15 +29,19 @@ public class Callouts extends Controller {
 		return ok(views.html.signup.render(false));
 	}
 
+	/**
+	 * Called on a POST request to sign up
+	 * Should have a form with username and password.
+	 * @return
+	 */
 	public static Result signUpPost() {
 		Form<UserForm> userFormForm = Form.form(UserForm.class);
 		UserForm userForm = userFormForm.bindFromRequest().get();
 
 		boolean validSignUp = true;
 
-		if (userForm.username == null || userForm.password == null) {
+		if (userForm.username == null || userForm.password == null)
 			validSignUp = false;
-		}
 
 		String sql = "select * from users where username = \"" + userForm.username + "\";";
 		RawSql rawSql = RawSqlBuilder.unparsed(sql).create();
@@ -56,8 +58,20 @@ public class Callouts extends Controller {
 
 	}
 
+	/**
+	 * Adds the user to the database after successful sign up
+	 * @param user - form containing username and password to be added
+	 */
 	public static void addUser(UserForm user) {
+		String username = user.username;
+		String password = BCrypt.hashpw(user.password, BCrypt.gensalt());
+		User newUser = new User(username, password);
 
+		String sql = "insert into users(username, password) values(\""
+			+ newUser.getUsername() + "\", \""
+			+ newUser.getPassword() + "\");";
+		SqlUpdate insert = Ebean.createSqlUpdate(sql);
+		insert.execute();
 	}
 
 	public static Result authenticate() {
@@ -65,4 +79,5 @@ public class Callouts extends Controller {
 	}
 
     public static Result profile() { return ok(views.html.test.render(""));}
+    public static Result newsfeed() { return ok(views.html.newsfeed.render()); }
 }
