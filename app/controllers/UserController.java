@@ -62,7 +62,6 @@ public class UserController extends Controller {
 		boolean correct = true;
 		if (passwordList.isEmpty() || !passwordList.get(0).getPassword().equals(Crypto.sign(password)))
 			correct = false;
-		System.out.println("\n=====\n" + correct + "\n=======\n");
 
 		return correct;
 	}

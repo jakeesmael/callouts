@@ -6,6 +6,7 @@ import play.data.Form;
 import play.libs.Crypto;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
 import java.util.List;
 
@@ -106,11 +107,13 @@ public class Callouts extends Controller {
 		}
 	}
 
-    public static Result profile() {
-			return ok(views.html.profile.render());
-		}
+	@Security.Authenticated(Secured.class)
+	public static Result profile() {
+		return ok(views.html.profile.render());
+	}
 
-    public static Result newsfeed() {
-			return ok(views.html.newsfeed.render());
-		}
+	@Security.Authenticated(Secured.class)
+	public static Result newsfeed() {
+		return ok(views.html.newsfeed.render());
+	}
 }

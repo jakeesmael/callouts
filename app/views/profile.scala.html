@@ -3,31 +3,65 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
-    <link rel='stylesheet' media="screen" href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
+    <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/main.css")'>
+    <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/profile.css")'>
+    <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
     <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap-theme.min.css")'>
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
-    <title></title>
+    <title>Profile</title>
 </head>
 <body>
 
     <div class="container" id="content">
         <div class = "row">
-            <div class = "col-sm-3 col-sm-offset-1 blog-sidebar">
+            <div class = "col-sm-3">
                 <div class="sidebar-module sidebar-module-inset">
                     <h1>Profile picture</h1>
+                    <ul class = "list-unstyled">
+                        <li>Username</li>
+                        <li><a href="#">Send Message</a></li>
+                </div>
+                <div class="sidebar-module" id="statistics">
+                    <ul class = "list-unstyled">
+                        <li>Challenges Answered: 235</li>
+                        <li>Win Ratio: 56.4% </li>
+                        <li>Level: 36</li>
+                        <li>Average points bet: 420</li>
+                        <li>Other stats?</li>
+                    </ul>
                 </div>
                 <div class="sidebar-module">
-                <p>Some test text</p>
-                </div>
-                <div class="sidebar-module"
-                <p>Some more test text </p>
+                    <button class="btn btn-md btn-info">Challenge!</button>
                 </div>
             </div>
-            <div class = "col-sm-8 blog-main">
-            <p>Blah blah</p>
+            <div class = "col-sm-8 col-sm-offset-1">
+                <h1 id="history-header">Match History</h1>
+                <div class="content">
+                    <ul class="list-unstyled" id="newsfeed">
+                        <li class="newsfeed-item">
+                            <div class="col-sm-3" id="challenger">
+                                <p class="challenger-wager">Wager</p>
+                                <div class="challenger-icon"></div>
+                                <p class="challenger-name">Name</p>
+                                <p class="challenger-level">LVL:</p>
+                            </div>
+                            <div class="col-sm-6" id="challenge-content">
+                                <h3 class="challenge-description"></h3>
+                                <div class="challenge-stats">
+                                    <div class="challenge-left-odds"></div>
+                                    <div class="challenge-right-odds"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" id="challenger">
+                                <p class="challenger-wager">Wager</p>
+                                <div class="challenger-icon"></div>
+                                <p class="challenger-name">Name</p>
+                                <p class="challenger-level">LVL:</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
