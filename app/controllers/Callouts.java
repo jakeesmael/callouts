@@ -78,6 +78,6 @@ public class Callouts extends Controller {
 		return ok(views.html.test.render(""));
 	}
 
-    public static Result profile() { return ok(views.html.test.render(""));}
+    public static Result profile() { return ok(views.html.profile.render());}
     public static Result newsfeed() { return ok(views.html.newsfeed.render()); }
 }
