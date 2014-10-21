@@ -15,7 +15,7 @@
 
     <div class="container" id="content">
         <div class = "row">
-            <div class = "col-sm-3 blog-sidebar">
+            <div class = "col-sm-3">
                 <div class="sidebar-module sidebar-module-inset">
                     <h1>Profile picture</h1>
                     <ul class = "list-unstyled">
@@ -35,10 +35,32 @@
                     <button class="btn btn-md btn-info">Challenge!</button>
                 </div>
             </div>
-            <div class = "col-sm-8 col-sm-offset-1 blog-main">
-                <div class = "blog-post">
-                    <h1 id="match_header">Match History</h1>
-
+            <div class = "col-sm-8 col-sm-offset-1">
+                <h1 id="history-header">Match History</h1>
+                <div class="content">
+                    <ul class="list-unstyled" id="newsfeed">
+                        <li class="newsfeed-item">
+                            <div class="col-sm-3" id="challenger">
+                                <p class="challenger-wager">Wager</p>
+                                <div class="challenger-icon"></div>
+                                <p class="challenger-name">Name</p>
+                                <p class="challenger-level">LVL:</p>
+                            </div>
+                            <div class="col-sm-6" id="challenge-content">
+                                <h3 class="challenge-description"></h3>
+                                <div class="challenge-stats">
+                                    <div class="challenge-left-odds"></div>
+                                    <div class="challenge-right-odds"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" id="challenger">
+                                <p class="challenger-wager">Wager</p>
+                                <div class="challenger-icon"></div>
+                                <p class="challenger-name">Name</p>
+                                <p class="challenger-level">LVL:</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
