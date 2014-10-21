@@ -16,5 +16,5 @@ import java.util.Set;
 import java.util.List;
 
 public class BetController extends Controller {
-    
+
 }
