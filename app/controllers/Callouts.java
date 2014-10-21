@@ -44,8 +44,7 @@ public class Callouts extends Controller {
 		String sql = "select * from users where username = \"" + userForm.username + "\";";
 		RawSql rawSql = RawSqlBuilder.unparsed(sql).create();
 		Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
-
-		//query.findList();
+		List<User> userList = query.findList();
 		if (userList.isEmpty()) {
 			addUser(userForm);
 			return ok(views.html.test.render("created " + userForm.username + " " + userForm.password));
