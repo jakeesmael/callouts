@@ -32,6 +32,11 @@ public class Callouts extends Controller {
 		return ok(views.html.login.render());
 	}
 
+	public static Result logout() {
+		deleteSessionCookie();
+		return redirect("/login");
+	}
+
 	/**
 	 * Called when someone goes to the sign up page (with GET)
 	 * @return
@@ -79,9 +84,16 @@ public class Callouts extends Controller {
 	 * Sets the session cookie for the user based on their username
 	 * @param username
 	 */
-	private static void setSessionCookie(String username) {
+	public static void setSessionCookie(String username) {
 		String sessionCookie = Crypto.encryptAES(username);
 		response().setCookie("session_id", sessionCookie, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * Discards the session cookie, effectively logging them out.
+	 */
+	public static void deleteSessionCookie() {
+		response().discardCookie("session_id");
 	}
 
 	/**
@@ -116,4 +128,6 @@ public class Callouts extends Controller {
 	public static Result newsfeed() {
 		return ok(views.html.newsfeed.render());
 	}
+
+
 }
