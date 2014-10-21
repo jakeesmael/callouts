@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `username` varchar(15) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
   `points` int(11) DEFAULT '20',
   `wins` int(11) DEFAULT '0',
