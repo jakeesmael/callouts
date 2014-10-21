@@ -106,6 +106,10 @@ public class Callouts extends Controller {
 		}
 	}
 
+    public static Result profile() {
+			return ok(views.html.profile.render());
+		}
+
     public static Result newsfeed() {
 			return ok(views.html.newsfeed.render());
 		}
