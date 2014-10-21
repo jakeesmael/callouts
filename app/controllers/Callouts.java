@@ -63,4 +63,6 @@ public class Callouts extends Controller {
 	public static Result authenticate() {
 		return ok(views.html.test.render(""));
 	}
+
+    public static Result newsfeed() { return ok(views.html.newsfeed.render()); }
 }
