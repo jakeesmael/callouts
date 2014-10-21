@@ -12,5 +12,10 @@
         <script src='@routes.Assets.at("javascripts/hello.js")' type='text/javascript'></script>
 	</head>
 	<body>
-    </body>
+		@helper.form(action = routes.Callouts.authenticate()) {
+			<input type="text" name="username" required><br>
+			<input type="password" name="password" required><br>
+			<input type="submit" value="Submit">
+		}
+	</body>
 </html>

@@ -11,10 +11,12 @@ public class User {
 	private String username;
 	private String password;
 	private String name;
-	private int points;
-	private int wins;
-	private int losses;
-	private int level;
+	private Integer points;
+	private Integer wins;
+	private Integer losses;
+	private Integer level;
+
+	public User() {};
 
 	public User(String username, String password) {
 		this.username = username;
@@ -49,35 +51,35 @@ public class User {
 		this.name = name;
 	}
 
-	public int getPoints() {
+	public Integer getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(Integer points) {
 		this.points = points;
 	}
 
-	public int getWins() {
+	public Integer getWins() {
 		return wins;
 	}
 
-	public void setWins(int wins) {
+	public void setWins(Integer wins) {
 		this.wins = wins;
 	}
 
-	public int getLosses() {
+	public Integer getLosses() {
 		return losses;
 	}
 
-	public void setLosses(int losses) {
+	public void setLosses(Integer losses) {
 		this.losses = losses;
 	}
 
-	public int getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
 
-	public void setLevel(int level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 
