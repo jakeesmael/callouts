@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>Callouts</title>
-        <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/main.css")'>
+        <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/style.css")'>
         <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/newsfeed.css")'>
         <link rel='stylesheet' media="screen" href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
         <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap-theme.min.css")'>
@@ -12,13 +12,32 @@
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <ul>
-                <li></li>
-            </ul>
         </div>
         <div class="container">
-            <div class="content" id="newsfeed">
-
+            <div class="content">
+                <ul id="newsfeed">
+                    <li class="newsfeed-item">
+                        <div class="challenger">
+                            <p class="challenger-wager">Wager</p>
+                            <div class="challenger-icon"></div>
+                            <p class="challenger-name">Name</p>
+                            <p class="challenger-level">LVL:</p>
+                        </div>
+                        <div class="challenge-content">
+                            <h3 class="challenge-description"></h3>
+                            <div class="challenge-stats">
+                                <div class="challenge-left-odds"></div>
+                                <div class="challenge-right-odds"></div>
+                            </div>
+                        </div>
+                        <div class="challenger">
+                            <p class="challenger-wager">Wager</p>
+                            <div class="challenger-icon"></div>
+                            <p class="challenger-name">Name</p>
+                            <p class="challenger-level">LVL:</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </body>
