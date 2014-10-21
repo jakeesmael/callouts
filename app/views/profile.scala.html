@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/main.css")'>
     <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/profile.css")'>
+    <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/newsfeed.css")'>
     <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
     <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap-theme.min.css")'>
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
@@ -38,28 +39,64 @@
             <div class = "col-sm-8 col-sm-offset-1">
                 <h1 id="history-header">Match History</h1>
                 <div class="content">
-                    <ul class="list-unstyled" id="newsfeed">
+                    <ul id="newsfeed">
                         <li class="newsfeed-item">
-                            <div class="col-sm-3" id="challenger">
+                            <div class="challenger">
                                 <p class="challenger-wager">Wager</p>
                                 <div class="challenger-icon"></div>
                                 <p class="challenger-name">Name</p>
                                 <p class="challenger-level">LVL:</p>
                             </div>
-                            <div class="col-sm-6" id="challenge-content">
-                                <h3 class="challenge-description"></h3>
+                            <div class="challenge-content">
+                                <h3 class="challenge-description">
+                                    The challenge description goes here!
+                                </h3>
                                 <div class="challenge-stats">
-                                    <div class="challenge-left-odds"></div>
-                                    <div class="challenge-right-odds"></div>
+                                    <div class="challenge-left-odds">
+                                        <h4 class="challenge-left-percent">420%</h4>
+                                    </div>
+                                    <div class="challenge-right-odds">
+                                        <h4 class="challenge-right-percent">420%</h4>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3" id="challenger">
+                            <div class="challenger">
                                 <p class="challenger-wager">Wager</p>
                                 <div class="challenger-icon"></div>
                                 <p class="challenger-name">Name</p>
                                 <p class="challenger-level">LVL:</p>
                             </div>
                         </li>
+                        <hr class="newsfeed-separator">
+                        <!--Just another copy of a newsfeed item for testing-->
+                        <li class="newsfeed-item">
+                            <div class="challenger">
+                                <p class="challenger-wager">Wager</p>
+                                <div class="challenger-icon"></div>
+                                <p class="challenger-name">Name</p>
+                                <p class="challenger-level">LVL:</p>
+                            </div>
+                            <div class="challenge-content">
+                                <h3 class="challenge-description">
+                                    The challenge description goes here!
+                                </h3>
+                                <div class="challenge-stats">
+                                    <div class="challenge-left-odds">
+                                        <h4 class="challenge-left-percent">420%</h4>
+                                    </div>
+                                    <div class="challenge-right-odds">
+                                        <h4 class="challenge-right-percent">420%</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="challenger">
+                                <p class="challenger-wager">Wager</p>
+                                <div class="challenger-icon"></div>
+                                <p class="challenger-name">Name</p>
+                                <p class="challenger-level">LVL:</p>
+                            </div>
+                        </li>
+                        <hr class="newsfeed-separator">
                     </ul>
                 </div>
             </div>
