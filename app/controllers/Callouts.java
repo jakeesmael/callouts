@@ -210,6 +210,7 @@ public class Callouts extends Controller {
 		Http.Cookie sessionCookie = request().cookies().get("session_id");
 		String username = Crypto.decryptAES(sessionCookie.value());
 		User user = UserController.getUserByUsername(username);
+		System.out.println(user.getPoints() +" "+ user.getLevel() +" "+ user.getWins());
 		User profileUser = UserController.getUserByUsername(profileUsername);
 		List<Challenge> sentChallenges= ChallengeController.getSentChallengesByUsername(profileUsername);
 		List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);

@@ -1,12 +1,15 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import play.db.ebean.*;
 
 /**
  * Created by jakeesmael on 10/20/14.
  */
 @Entity
+@Table(name = "users")
 public class User extends Model{
 	private String username;
 	private String password;
@@ -16,7 +19,7 @@ public class User extends Model{
 	private Integer losses;
 	private Integer level;
 
-	public User() {};
+	public User() {}
 
 	public User(String username, String password) {
 		this.username = username;

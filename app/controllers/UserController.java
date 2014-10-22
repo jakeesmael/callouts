@@ -35,7 +35,8 @@ public class UserController extends Controller {
 			.columnMapping("level", "level")
 			.create();
 		Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
-		List<User> userList = query.findList();
+//		List<User> userList = query.findList();
+		List<User> userList = User.find.where().eq("username", username).findList();
 
 		User user;
 		if (userList.isEmpty())
