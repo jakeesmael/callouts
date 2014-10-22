@@ -82,7 +82,9 @@
                 @if(sentChallenges.isEmpty) {
                     <h2>No challenges</h2>
                 } else {
-                    <h2>@sentChallenges.size challenges</h2>
+                    @for(s <- sentChallenges) {
+                        <li>@s.challengedUsername</li>
+                    }
                 }
                 <div class="content">
                     <ul id="newsfeed">
