@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.*;
 import models.User;
+import models.Challenge;
 import play.data.Form;
 import play.libs.Crypto;
 import play.mvc.Controller;
@@ -15,6 +16,7 @@ import java.util.List;
 import static controllers.UserController.addUser;
 import static controllers.UserController.correctPassword;
 import static controllers.UserController.getUserByUsername;
+
 
 /**
  * Created by jakeesmael on 10/19/14.
@@ -165,11 +167,12 @@ public class Callouts extends Controller {
         String username = Crypto.decryptAES(sessionCookie.value());
         User user = UserController.getUserByUsername(username);
         User profileUser = UserController.getUserByUsername(profileUsername);
-        
+        List<Challenge> sentChallenges= ChallengeController.getSentChallengesByUsername(profileUsername);
+        List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);
         if (profileUser == null) {
             return ok(views.html.error.render(user));
         } else {
-            return ok(views.html.profile.render(user, profileUser));
+            return ok(views.html.profile.render(user, profileUser,sentChallenges,receivedChallenges));
         }
 	}
 
