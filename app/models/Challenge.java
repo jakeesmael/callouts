@@ -9,7 +9,7 @@ import java.sql.Timestamp;
  * Created by jakeesmael on 10/20/14.
  */
 @Entity
-public class Challenge {
+public class Challenge extends Model{
 	private Integer challengeId;
 	private String challengerUsername;
 	private String challengedUsername;
