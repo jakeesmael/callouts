@@ -192,17 +192,17 @@ public class Callouts extends Controller {
 		}
 	}
 
-	public static Result challengeDelete(String challengerUsername, String challengedUsername, String time) {
+	public static Result challengeDelete(String challengerUsername, String challengedUsername, String time, String profileUsername) {
 		ChallengeController.deleteChallenge(challengerUsername, challengedUsername, Timestamp.valueOf(time));
-		return redirect("/");
+		return redirect("/" + profileUsername);
 	}
 
-	public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time) {
+	public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time, String profileUsername) {
 		Calendar calendar = Calendar.getInstance();
 		Timestamp oldTime = Timestamp.valueOf(time);
 		Timestamp currentTime = new Timestamp(calendar.getTime().getTime());
 		ChallengeController.updateChallengeTime(challengerUsername, challengedUsername, oldTime, currentTime);
-		return redirect("/");
+		return redirect("/" + profileUsername);
 	}
 
 	@Security.Authenticated(Secured.class)
