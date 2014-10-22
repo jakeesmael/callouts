@@ -195,7 +195,7 @@ public class ChallengeController extends Controller {
 	 * @param challenger
 	 * @param challenged
 	 * @param time
-	 * @param subject
+	 * @param newSubject
 	 */
 	public static void updateChallengeSubject(String challenger, String challenged, Timestamp time,
 																						 String newSubject) {

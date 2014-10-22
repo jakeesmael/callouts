@@ -4,6 +4,7 @@ import com.avaje.ebean.*;
 import models.User;
 import models.Challenge;
 import play.data.Form;
+import play.data.DynamicForm;
 import play.libs.Crypto;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -48,6 +49,33 @@ public class Callouts extends Controller {
 			this.subject = subject;
 		}
 	}
+
+    /**
+     *
+     * @param challengedUsername
+     * @return
+     */
+    public static Result challengePost() {
+        DynamicForm requestData = Form.form().bindFromRequest();
+        // get all of the form field inputs from the request
+        String challengerUsername = requestData.get("challengerUsername");
+        String challengedUsername = requestData.get("challengedUsername");
+        // hard code the time and odds for now...
+        Timestamp time = new Timestamp(System.currentTimeMillis() + 604800000);
+        int odds = 1;
+        int wager = Integer.parseInt(requestData.get("wager"));
+        String location = requestData.get("location");
+        String subject = requestData.get("subject");
+        ChallengeForm challengeForm = new ChallengeForm(challengerUsername, challengedUsername, wager, odds, location, time, subject);
+
+        if (!ChallengeController.isValidChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time)
+            || ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null) {
+            return redirect("/");
+        } else {
+            ChallengeController.addChallenge(challengeForm);
+            return redirect("/" + challengedUsername);
+        }
+    }
 
 	/**
 	 * returns login page
@@ -150,6 +178,7 @@ public class Callouts extends Controller {
 		User user = getUserByUsername(userForm.username);
 		if (user == null)
 			successful = false;
+
 		successful = correctPassword(userForm.username, userForm.password);
 
 		if (successful) {
@@ -169,6 +198,7 @@ public class Callouts extends Controller {
         User profileUser = UserController.getUserByUsername(profileUsername);
         List<Challenge> sentChallenges= ChallengeController.getSentChallengesByUsername(profileUsername);
         List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);
+
         if (profileUser == null) {
             return ok(views.html.error.render(user));
         } else {
@@ -184,8 +214,5 @@ public class Callouts extends Controller {
         return ok(views.html.newsfeed.render(user));
 	}
 
-    public static Result challengePost() {
 
-        return redirect("#");
-    }
 }

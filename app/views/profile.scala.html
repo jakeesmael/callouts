@@ -17,32 +17,33 @@
 </head>
 <body>
 		<div id="challenge-overlay">
+
 			<div id="challenge-modal">
 				@helper.form(action = routes.Callouts.challengePost()) {
-                    <div class="col-sm-9">
-                        <h1> Issue a challenge! </h1>
-                        <ul class = "list-unstyled">
-                            <li><input type="hidden" value="@user.getUsername()" id="challenger-username" name="challengerUsername"></li>
-                            <li><input type="hidden" value="@profileUser.getUsername()" id="challenged-username" name="challengedUsername"></li>
-                            <li><input type="hidden" id="odds" name="odds"></li>
-    					    <li><input type="text" placeholder="Wager" name="wager" required autofocus></li>
-        					<li><input type="text" placeholder="Subject" name="subject"></li>
-        					<li><input type="location" placeholder="Location" name="location"></li>
-                            <!-- <li>
+          @*<div class="col-sm-9">*@
+						<h1> Issue a challenge! </h1>
+						<ul class = "list-unstyled">
+							<li><input type="hidden" value="@user.getUsername()" id="challenger-username" name="challengerUsername"></li>
+							<li><input type="hidden" value="@profileUser.getUsername()" id="challenged-username" name="challengedUsername"></li>
+							<li><input type="hidden" id="odds" name="odds"></li>
+							<li><input type="text" placeholder="Wager" name="wager" required autofocus></li>
+							<li><input type="text" placeholder="Subject" name="subject"></li>
+							<li><input type="location" placeholder="Location" name="location"></li>
+							<!-- <li>
 								<div class='input-group date' id='datetimepicker1'>
 									<input type='text' class="form-control" />
 									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
-                            </li> -->
-                            <li><input type="hidden" value="0" name="time"></li>
-                        </ul>
-    					<input type="submit" class="btn btn-success" value="Submit">
-                    </div>
-				}
-                    <div class="col-sm-3" id="cancel-button-div">
-                        <button class="btn btn-danger" id="cancel-button">Cancel</button>
-                    </div>
+							</li> -->
+							<li><input type="hidden" value="0" name="time"></li>
+						</ul>
+						<input type="submit" class="btn btn-success" value="Submit">
+					</div>
+					}
+					<div class="col-sm-3" id="cancel-button-div">
+							<button class="btn btn-danger" id="cancel-button">Cancel</button>
+					</div>
 		  </div>
 		</div>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
