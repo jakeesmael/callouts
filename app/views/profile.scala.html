@@ -12,12 +12,13 @@
     <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
     <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap-theme.min.css")'>
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <title>Profile</title>
 </head>
 <body>
 		<div id="challenge-overlay">
-
 			<div id="challenge-modal">
 				@helper.form(action = routes.Callouts.challengePost()) {
                     <div class="col-sm-9">
@@ -31,7 +32,7 @@
 							<li><input type="location" placeholder="Location" name="location"></li>
 							<!-- <li>
 								<div class='input-group date' id='datetimepicker1'>
-									<input type='text' class="form-control" />
+									<input type='text' class="form-control" id='datetimepickerfield1' />
 									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
@@ -44,7 +45,7 @@
 					<div class="col-sm-3" id="cancel-button-div">
 							<button class="btn btn-danger" id="cancel-button">Cancel</button>
 					</div>
-		  </div>
+            </div>
 		</div>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 				<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
@@ -71,11 +72,11 @@
                     </ul>
                 </div>
                 <div class="sidebar-module">
-										@if(user.getUsername != profileUser.getUsername()) {
-												<button class="btn btn-md btn-info" id="challenge-button">Challenge!</button>
-										} else {
-												<p>This is your profile.</p>
-										}
+					@if(user.getUsername != profileUser.getUsername()) {
+							<button class="btn btn-md btn-info" id="challenge-button">Challenge!</button>
+					} else {
+							<p>This is your profile.</p>
+					}
                 </div>
             </div>
             <div class = "col-sm-8 col-sm-offset-1">
@@ -87,145 +88,88 @@
                 }
                 <div class="content">
                     <ul id="newsfeed">
-											@if(sentChallenges.isEmpty) {
-												<h2>No challenges</h2>
-											} else {
-												@for(s <- sentChallenges) {
-													<li class="newsfeed-item">
-														<div class="challenger">
-															<p class="challenger-wager">@s.getWager()</p>
-															<div class="challenger-icon"></div>
-															<p class="challenger-name">@s.getChallengerUsername()</p>
-															<p class="challenger-level">LVL:</p>
-														</div>
-														<div class="challenge-content">
-															<h3 class="challenge-description">
-																@s.getSubject() by @s.getTime() .
-															</h3>
-															<div class="challenge-stats">
-																<div class="challenge-left-odds">
-																	<h4 class="challenge-left-percent">@s.getOdds() %</h4>
-																</div>
-																<div class="challenge-right-odds">
-																	<h4 class="challenge-right-percent">@s.getOdds() %</h4>
-																</div>
-															</div>
-														</div>
-														<div class="challenger">
-															<p class="challenger-wager">@s.getWager()</p>
-															<div class="challenger-icon"></div>
-															<p class="challenger-name">@s.getChallengedUsername()</p>
-															<p class="challenger-level">LVL:</p>
-														</div>
-														@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-															<input type="submit" value="Delete">
-														}
-														@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-															<input type="submit" value="Update Time">
-														}
-													</li>
-													<hr class="newsfeed-separator">
-												}
-												@for(s <- recievedChallenges) {
-													<li class="newsfeed-item">
-														<div class="challenger">
-															<p class="challenger-wager">@s.getWager()</p>
-															<div class="challenger-icon"></div>
-															<p class="challenger-name">@s.getChallengerUsername()</p>
-															<p class="challenger-level">LVL:</p>
-														</div>
-														<div class="challenge-content">
-															<h3 class="challenge-description">
-																@s.getSubject() by @s.getTime() .
-															</h3>
-															<div class="challenge-stats">
-																<div class="challenge-left-odds">
-																	<h4 class="challenge-left-percent">@s.getOdds() %</h4>
-																</div>
-																<div class="challenge-right-odds">
-																	<h4 class="challenge-right-percent">@s.getOdds() %</h4>
-																</div>
-															</div>
-														</div>
-														<div class="challenger">
-															<p class="challenger-wager">@s.getWager()</p>
-															<div class="challenger-icon"></div>
-															<p class="challenger-name">@s.getChallengedUsername()</p>
-															<p class="challenger-level">LVL:</p>
-														</div>
-														@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-															<input type="submit" value="Delete">
-														}
-														@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-															<input type="submit" value="Update Time">
-															}
-													</li>
-													<hr class="newsfeed-separator">
-												}
-												<h2>@sentChallenges.size challenges</h2>
-											}
-                        <li class="newsfeed-item">
-                            <div class="challenger">
-                                <p class="challenger-wager">Wager</p>
-                                <div class="challenger-icon"></div>
-                                <p class="challenger-name">Name</p>
-                                <p class="challenger-level">LVL:</p>
-                            </div>
-                            <div class="challenge-content">
-                                <h3 class="challenge-description">
-                                    The challenge description goes here!
-                                </h3>
-                                <div class="challenge-stats">
-                                    <div class="challenge-left-odds">
-                                        <h4 class="challenge-left-percent">420%</h4>
-                                    </div>
-                                    <div class="challenge-right-odds">
-                                        <h4 class="challenge-right-percent">420%</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="challenger">
-                                <p class="challenger-wager">Wager</p>
-                                <div class="challenger-icon"></div>
-                                <p class="challenger-name">Name</p>
-                                <p class="challenger-level">LVL:</p>
-                            </div>
-                        </li>
-                        <hr class="newsfeed-separator">
-                        <!--Just another copy of a newsfeed item for testing-->
-                        <li class="newsfeed-item">
-                            <div class="challenger">
-                                <p class="challenger-wager">Wager</p>
-                                <div class="challenger-icon"></div>
-                                <p class="challenger-name">Name</p>
-                                <p class="challenger-level">LVL:</p>
-                            </div>
-                            <div class="challenge-content">
-                                <h3 class="challenge-description">
-                                    The challenge description goes here!
-                                </h3>
-                                <div class="challenge-stats">
-                                    <div class="challenge-left-odds">
-                                        <h4 class="challenge-left-percent">420%</h4>
-                                    </div>
-                                    <div class="challenge-right-odds">
-                                        <h4 class="challenge-right-percent">420%</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="challenger">
-                                <p class="challenger-wager">Wager</p>
-                                <div class="challenger-icon"></div>
-                                <p class="challenger-name">Name</p>
-                                <p class="challenger-level">LVL:</p>
-                            </div>
-                        </li>
-                        <hr class="newsfeed-separator">
+						@if(sentChallenges.isEmpty) {
+							<h2>No challenges</h2>
+						} else {
+							@for(s <- sentChallenges) {
+								<li class="newsfeed-item">
+									<div class="challenger">
+										<p class="challenger-wager">@s.getWager()</p>
+										<div class="challenger-icon"></div>
+										<p class="challenger-name">@s.getChallengerUsername()</p>
+										<p class="challenger-level">LVL:</p>
+									</div>
+									<div class="challenge-content">
+										<h3 class="challenge-description">
+											@s.getSubject() by @s.getTime() .
+										</h3>
+										<div class="challenge-stats">
+											<div class="challenge-left-odds">
+												<h4 class="challenge-left-percent">@s.getOdds() %</h4>
+											</div>
+											<div class="challenge-right-odds">
+												<h4 class="challenge-right-percent">@s.getOdds() %</h4>
+											</div>
+										</div>
+									</div>
+									<div class="challenger">
+										<p class="challenger-wager">@s.getWager()</p>
+										<div class="challenger-icon"></div>
+										<p class="challenger-name">@s.getChallengedUsername()</p>
+										<p class="challenger-level">LVL:</p>
+									</div>
+									@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+										<input type="submit" value="Delete">
+									}
+									@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+										<input type="submit" value="Update Time">
+									}
+								</li>
+								<hr class="newsfeed-separator">
+							}
+							@for(s <- recievedChallenges) {
+								<li class="newsfeed-item">
+									<div class="challenger">
+										<p class="challenger-wager">@s.getWager()</p>
+										<div class="challenger-icon"></div>
+										<p class="challenger-name">@s.getChallengerUsername()</p>
+										<p class="challenger-level">LVL:</p>
+									</div>
+									<div class="challenge-content">
+										<h3 class="challenge-description">
+											@s.getSubject() by @s.getTime() .
+										</h3>
+										<div class="challenge-stats">
+											<div class="challenge-left-odds">
+												<h4 class="challenge-left-percent">@s.getOdds() %</h4>
+											</div>
+											<div class="challenge-right-odds">
+												<h4 class="challenge-right-percent">@s.getOdds() %</h4>
+											</div>
+										</div>
+									</div>
+									<div class="challenger">
+										<p class="challenger-wager">@s.getWager()</p>
+										<div class="challenger-icon"></div>
+										<p class="challenger-name">@s.getChallengedUsername()</p>
+										<p class="challenger-level">LVL:</p>
+									</div>
+									@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+										<input type="submit" value="Delete">
+									}
+									@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+										<input type="submit" value="Update Time">
+										}
+								</li>
+								<hr class="newsfeed-separator">
+							}
+							<h2>@sentChallenges.size challenges</h2>
+						}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-		<script type="javascript" src='@routes.Assets.at("javascripts/challenge.js")'></script>
+		<script src='@routes.Assets.at("javascripts/challenge.js")' type="text/javascript"></script>
 </body>
 </html>

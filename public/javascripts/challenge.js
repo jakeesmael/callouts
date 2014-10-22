@@ -9,15 +9,12 @@ $(document).ready(function() {
         $('#challenge-overlay').fadeToggle("fast");
     });
 
-    $('#challenge-overlay').click(function() {
+    $('#cancel-button').click(function() {
         $('#challenge-overlay').fadeToggle("fast");
-    });
+    })
+/*    $('#challenge-overlay').click(function() {
+        $('#challenge-overlay').fadeToggle("fast");
+    });*/
 
-    $('#datetimepicker1').datetimepicker();
+    //$('#datetimepicker1').datepicker();
 });
-
-console.log("not ready");
-
-if (window.console) {
-    console.log("asdofkjawoifh");
-}
