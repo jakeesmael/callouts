@@ -37,14 +37,15 @@ public class ChallengeController extends Controller {
 			if (challenge.odds <= 0)
 				challenge.odds = 1;
 
+			String time = challenge.time.toString().split("\\.")[0];
 			String sql = "insert into challenges(challenger_username, challenged_username, " +
 				"wager, odds, location, time, subject) values(\"" +
 				challenge.challengerUsername + "\", \"" +
-				challenge.challengedUsername + "\", \"" +
+				challenge.challengedUsername + "\", " +
 				challenge.wager + ", " +
 				challenge.odds + ", \"" +
 				challenge.location + "\", \"" +
-				challenge.time + "\", \"" +
+				time + "\", \"" +
 				challenge.subject + "\");";
 			SqlUpdate insert = Ebean.createSqlUpdate(sql);
 			insert.execute();
@@ -70,8 +71,8 @@ public class ChallengeController extends Controller {
 			.columnMapping("subject", "subject")
 			.create();
 		Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
-		List<Challenge> userList = query.findList();
-		return userList;
+		List<Challenge> challengeList = query.findList();
+		return challengeList;
 	}
 
 	/**
@@ -91,8 +92,8 @@ public class ChallengeController extends Controller {
 			.columnMapping("subject", "subject")
 			.create();
 		Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
-		List<Challenge> userList = query.findList();
-		return userList;
+		List<Challenge> challengeList = query.findList();
+		return challengeList;
 	}
 
 	/**
@@ -132,11 +133,11 @@ public class ChallengeController extends Controller {
 			.columnMapping("subject", "subject")
 			.create();
 		Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
-		List<Challenge> userList = query.findList();
-		if (userList.isEmpty())
+		List<Challenge> challengeList = query.findList();
+		if (challengeList.isEmpty())
 			challenge = null;
 		else
-			challenge = userList.get(0);
+			challenge = challengeList.get(0);
 
 		return challenge;
 	}

@@ -2,6 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.sql.Timestamp;
 
@@ -13,11 +14,17 @@ public class Challenge extends Model{
 	private Integer challengeId;
 	private String challengerUsername;
 	private String challengedUsername;
+	@Column(name="wager")
 	private Integer wager;
+	@Column(name="odds")
 	private Integer odds;
+	@Column(name="location")
 	private String location;
+	@Column(name="time")
 	private Timestamp time;
+	@Column(name="subject")
 	private String subject;
+	@Column(name="winner")
 	private String winner;
 
 	public Integer getChallengeId() {
@@ -44,6 +51,7 @@ public class Challenge extends Model{
 		this.challengedUsername = challengedUsername;
 	}
 
+	@Column(name="wager")
 	public Integer getWager() {
 		return wager;
 	}
