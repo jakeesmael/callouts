@@ -1,4 +1,4 @@
-@(user: User, profileUser: User, sentChallenges: List[Challenge], recievedChallenges: List[Challenge])
+@(user: User, profileUser: User, sentChallenges: List[Challenge], receivedChallenges: List[Challenge])
 @import java.sql.Timestamp;
 
 
@@ -81,11 +81,6 @@
             </div>
             <div class = "col-sm-8 col-sm-offset-1">
                 <h1 id="history-header">Match History</h1>
-                @if(sentChallenges.isEmpty) {
-                    <h2>No challenges</h2>
-                } else {
-                    <h2>@sentChallenges.size Challenges</h2>
-                }
                 <div class="content">
                     <ul id="newsfeed">
 						@if(sentChallenges.isEmpty) {
@@ -119,55 +114,54 @@
 										<p class="challenger-level">LVL:</p>
 									</div>
 									@if(user.getUsername() == s.getChallengerUsername()) {
-										@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+										@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString(), profileUser.getUsername())) {
 											<input type="submit" value="Delete">
 										}
-										@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+										@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString(), profileUser.getUsername())) {
 											<input type="submit" value="Update Time">
 										}
 									}
 								</li>
 								<hr class="newsfeed-separator">
 							}
-							@for(s <- recievedChallenges) {
+							@for(r <- receivedChallenges) {
 								<li class="newsfeed-item">
 									<div class="challenger">
-										<p class="challenger-wager">@s.getWager()</p>
+										<p class="challenger-wager">@r.getWager()</p>
 										<div class="challenger-icon"></div>
-										<p class="challenger-name">@s.getChallengerUsername()</p>
+										<p class="challenger-name">@r.getChallengerUsername()</p>
 										<p class="challenger-level">LVL:</p>
 									</div>
 									<div class="challenge-content">
 										<h3 class="challenge-description">
-											@s.getSubject() by @s.getTime() .
+											@r.getSubject() by @r.getTime() .
 										</h3>
 										<div class="challenge-stats">
 											<div class="challenge-left-odds">
-												<h4 class="challenge-left-percent">@s.getOdds() %</h4>
+												<h4 class="challenge-left-percent">@r.getOdds() %</h4>
 											</div>
 											<div class="challenge-right-odds">
-												<h4 class="challenge-right-percent">@s.getOdds() %</h4>
+												<h4 class="challenge-right-percent">@r.getOdds() %</h4>
 											</div>
 										</div>
 									</div>
 									<div class="challenger">
-										<p class="challenger-wager">@s.getWager()</p>
+										<p class="challenger-wager">@r.getWager()</p>
 										<div class="challenger-icon"></div>
-										<p class="challenger-name">@s.getChallengedUsername()</p>
+										<p class="challenger-name">@r.getChallengedUsername()</p>
 										<p class="challenger-level">LVL:</p>
 									</div>
-									@if(user.getUsername() == s.getChallengedUsername()) {
-										@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+									@if(user.getUsername() == r.getChallengedUsername()) {
+										@helper.form(action = routes.Callouts.challengeDelete(r.getChallengerUsername(), r.getChallengedUsername(), r.getTime().toString(), profileUser.getUsername())) {
 											<input type="submit" value="Delete">
 										}
-										@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+										@helper.form(action = routes.Callouts.challengeUpdateTime(r.getChallengerUsername(), r.getChallengedUsername(), r.getTime().toString(), profileUser.getUsername())) {
 											<input type="submit" value="Update Time">
 										}
 									}
 								</li>
 								<hr class="newsfeed-separator">
 							}
-							<h2>@sentChallenges.size challenges</h2>
 						}
                     </ul>
                 </div>
