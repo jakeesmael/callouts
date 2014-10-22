@@ -24,3 +24,11 @@
     margin: auto auto;
     z-index: 11;
 }
+
+#datetimepicker1 {
+    width: 50%;
+}
+
+#cancel-button-div {
+    position: relative;
+}

@@ -16,4 +16,4 @@ POST        /signup              controllers.Callouts.signUpPost()
 
 #profile page
 GET         /:username           controllers.Callouts.profile(username)
-POST        /challenge           controllers.Callouts.challengePost(challenged)
+POST        /challenge           controllers.Callouts.challengePost()
