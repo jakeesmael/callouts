@@ -13,6 +13,7 @@ import play.mvc.Http;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Calendar;
 
 import static controllers.UserController.addUser;
 import static controllers.UserController.correctPassword;
@@ -49,33 +50,6 @@ public class Callouts extends Controller {
 			this.subject = subject;
 		}
 	}
-
-    /**
-     *
-     * @param challengedUsername
-     * @return
-     */
-    public static Result challengePost() {
-        DynamicForm requestData = Form.form().bindFromRequest();
-        // get all of the form field inputs from the request
-        String challengerUsername = requestData.get("challengerUsername");
-        String challengedUsername = requestData.get("challengedUsername");
-        // hard code the time and odds for now...
-        Timestamp time = new Timestamp(System.currentTimeMillis() + 604800000);
-        int odds = 1;
-        int wager = Integer.parseInt(requestData.get("wager"));
-        String location = requestData.get("location");
-        String subject = requestData.get("subject");
-        ChallengeForm challengeForm = new ChallengeForm(challengerUsername, challengedUsername, wager, odds, location, time, subject);
-
-        if (!ChallengeController.isValidChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time)
-            || ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null) {
-            return redirect("/");
-        } else {
-            ChallengeController.addChallenge(challengeForm);
-            return redirect("/" + challengedUsername);
-        }
-    }
 
 	/**
 	 * returns login page
@@ -189,6 +163,47 @@ public class Callouts extends Controller {
 			return redirect("/login");
 		}
 	}
+
+    /**
+     *
+     * @return
+     */
+    public static Result challengePost() {
+        DynamicForm requestData = Form.form().bindFromRequest();
+        // get all of the form field inputs from the request
+        String challengerUsername = requestData.get("challengerUsername");
+        String challengedUsername = requestData.get("challengedUsername");
+        int odds = 1;
+        int wager = Integer.parseInt(requestData.get("wager"));
+        String location = requestData.get("location");
+        String subject = requestData.get("subject");
+        // hard code the time and odds for now...
+        Calendar calendar = Calendar.getInstance();
+        Timestamp time = new Timestamp(calendar.getTime().getTime());
+
+        ChallengeForm challengeForm = new ChallengeForm(challengerUsername, challengedUsername, wager, odds, location, time, subject);
+
+        if (!ChallengeController.isValidChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time)
+                || ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null) {
+            return redirect("/");
+        } else {
+            ChallengeController.addChallenge(challengeForm);
+            return redirect("/" + challengedUsername);
+        }
+    }
+
+    public static Result challengeDelete(String challengerUsername, String challengedUsername, String time) {
+        ChallengeController.deleteChallenge(challengerUsername, challengedUsername, Timestamp.valueOf(time));
+        return redirect("/");
+    }
+
+    public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time) {
+        Calendar calendar = Calendar.getInstance();
+        Timestamp oldTime = Timestamp.valueOf(time);
+        Timestamp currentTime = new Timestamp(calendar.getTime().getTime());
+        ChallengeController.updateChallengeTime(challengerUsername, challengedUsername, oldTime, currentTime);
+        return redirect("/");
+    }
 
 	@Security.Authenticated(Secured.class)
 	public static Result profile(String profileUsername) {

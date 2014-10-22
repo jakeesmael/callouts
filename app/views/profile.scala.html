@@ -87,6 +87,47 @@
                 }
                 <div class="content">
                     <ul id="newsfeed">
+											@if(sentChallenges.isEmpty) {
+												<h2>No challenges</h2>
+											} else {
+												@for(s <- sentChallenges) {
+													<li class="newsfeed-item">
+														<div class="challenger">
+															<p class="challenger-wager">@s.getWager()</p>
+															<div class="challenger-icon"></div>
+															<p class="challenger-name">@s.getChallengerUsername()</p>
+															<p class="challenger-level">LVL:</p>
+														</div>
+														<div class="challenge-content">
+															<h3 class="challenge-description">
+																@s.getSubject() by @s.getTime() .
+															</h3>
+															<div class="challenge-stats">
+																<div class="challenge-left-odds">
+																	<h4 class="challenge-left-percent">@s.getOdds() %</h4>
+																</div>
+																<div class="challenge-right-odds">
+																	<h4 class="challenge-right-percent">@s.getOdds() %</h4>
+																</div>
+															</div>
+														</div>
+														<div class="challenger">
+															<p class="challenger-wager">@s.getWager()</p>
+															<div class="challenger-icon"></div>
+															<p class="challenger-name">@s.getChallengedUsername()</p>
+															<p class="challenger-level">LVL:</p>
+														</div>
+														@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+															<input type="submit" value="Delete">
+														}
+														@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+															<input type="submit" value="Update Time">
+														}
+													</li>
+													<hr class="newsfeed-separator">
+												}
+												<h2>@sentChallenges.size challenges</h2>
+											}
                         <li class="newsfeed-item">
                             <div class="challenger">
                                 <p class="challenger-wager">Wager</p>
