@@ -9,6 +9,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.Http;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import static controllers.UserController.addUser;
@@ -25,12 +26,38 @@ public class Callouts extends Controller {
 		public String password;
 	}
 
+	public static class ChallengeForm {
+		public String challengerUsername;
+		public String challengedUsername;
+		public int wager;
+		public int odds;
+		public String location;
+		public Timestamp time;
+		public String subject;
+
+		public ChallengeForm(String challengerUsername, String challengedUsername, int wager,
+												 int odds, String location, Timestamp time, String subject) {
+			this.challengerUsername = challengerUsername;
+			this.challengedUsername = challengedUsername;
+			this.wager = wager;
+			this.odds = odds;
+			this.location = location;
+			this.time = time;
+			this.subject = subject;
+		}
+	}
+
 	/**
 	 * returns login page
 	 * @return
 	 */
 	public static Result login() {
 		return ok(views.html.login.render());
+	}
+
+	public static Result logout() {
+		deleteSessionCookie();
+		return redirect("/login");
 	}
 
 	/**
@@ -80,9 +107,32 @@ public class Callouts extends Controller {
 	 * Sets the session cookie for the user based on their username
 	 * @param username
 	 */
-	private static void setSessionCookie(String username) {
+	public static void setSessionCookie(String username) {
 		String sessionCookie = Crypto.encryptAES(username);
 		response().setCookie("session_id", sessionCookie, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * Discards the session cookie, effectively logging them out.
+	 */
+	public static void deleteSessionCookie() {
+		response().discardCookie("session_id");
+	}
+
+	/**
+	 * Gets the username of the currently logged in user
+	 * @return username
+	 */
+	public static String getCurrentUsername() {
+		return Crypto.decryptAES(request().cookies().get("session_id").value());
+	}
+
+	/**
+	 * Gets the currently logged in user as a User
+	 * @return user
+	 */
+	public static User getCurrentUser() {
+		return getUserByUsername(getCurrentUsername());
 	}
 
 	/**
@@ -129,4 +179,6 @@ public class Callouts extends Controller {
         User user = UserController.getUserByUsername(username);
         return ok(views.html.newsfeed.render(user));
 	}
+
+
 }
