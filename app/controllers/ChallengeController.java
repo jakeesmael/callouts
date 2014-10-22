@@ -156,7 +156,37 @@ public class ChallengeController extends Controller {
 		delete.execute();
 	}
 
+	/**
+	 * Updates the time of a challenge
+	 * @param challenger
+	 * @param challenged
+	 * @param oldTime
+	 * @param newTime
+	 */
 	public static void updateChallengeTime(String challenger, String challenged, Timestamp oldTime,
 																				 Timestamp newTime) {
+		String sql = "update challenges set time = \"" + newTime + "\"" +
+			" where challenger_username = \"" + challenger + "\"" +
+			" and challenged_username = \"" + challenged + "\"" +
+			" and time = \"" + oldTime + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
+	}
+
+	/**
+	 * Updates the location of a challenge
+	 * @param challenger
+	 * @param challenged
+	 * @param time
+	 * @param newLocation
+	 */
+	public static void updateChallengeLocation(String challenger, String challenged, Timestamp time,
+																				 String newLocation) {
+		String sql = "update challenges set location = \"" + newLocation + "\"" +
+			" where challenger_username = \"" + challenger + "\"" +
+			" and challenged_username = \"" + challenged + "\"" +
+			" and time = \"" + time + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
 	}
 }
