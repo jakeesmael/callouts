@@ -17,10 +17,10 @@
 <body>
 		<div id="challenge-overlay">
 				<div id="challenge-modal">
-						@helper.form(action = routes.Callouts.challengePost()) {
+						@helper.form(action = routes.Callouts.challengePost(profileUser.getUsername())) {
 								<input type="text" name="wager" required><br>
-								<input type="text" name="subject"><br>
-								<input type="location" name="location"><br>
+								<input type="text" name="subject" required><br>
+								<input type="location" name="location" required><br>
 								<div class="row">
 										<div class='col-sm-6'>
 												<div class="form-group">
@@ -31,6 +31,7 @@
 														</div>
 												</div>
 										</div>
+
 								</div><br>
 								<input type="submit" value="Submit">
 						}

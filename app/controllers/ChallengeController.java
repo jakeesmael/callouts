@@ -37,6 +37,8 @@ public class ChallengeController extends Controller {
 			if (challenge.odds <= 0)
 				challenge.odds = 1;
 
+            // hard code the time for now...
+            challenge.time = new Timestamp(System.currentTimeMillis() + 604800000);
 			String sql = "insert into challenges(challenger_username, challenged_username, " +
 				"wager, odds, location, time, subject) values(\"" +
 				challenge.challengerUsername + "\", \"" +
@@ -195,7 +197,7 @@ public class ChallengeController extends Controller {
 	 * @param challenger
 	 * @param challenged
 	 * @param time
-	 * @param subject
+	 * @param newSubject
 	 */
 	public static void updateChallengeSubject(String challenger, String challenged, Timestamp time,
 																						 String newSubject) {

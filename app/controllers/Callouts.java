@@ -47,6 +47,24 @@ public class Callouts extends Controller {
 		}
 	}
 
+    /**
+     *
+     * @param challengedUsername
+     * @return
+     */
+    public static Result challengePost(String challengedUsername) {
+        Form<ChallengeForm> challengeFormForm = Form.form(ChallengeForm.class);
+        ChallengeForm challengeForm = challengeFormForm.bindFromRequest().get();
+
+        if (!ChallengeController.isValidChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time)
+            || ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null) {
+            return redirect("/");
+        } else {
+            ChallengeController.addChallenge(challengeForm);
+            return redirect("/" + challengedUsername);
+        }
+    }
+
 	/**
 	 * returns login page
 	 * @return
@@ -165,7 +183,8 @@ public class Callouts extends Controller {
         String username = Crypto.decryptAES(sessionCookie.value());
         User user = UserController.getUserByUsername(username);
         User profileUser = UserController.getUserByUsername(profileUsername);
-        
+
+
         if (profileUser == null) {
             return ok(views.html.error.render(user));
         } else {
@@ -181,8 +200,5 @@ public class Callouts extends Controller {
         return ok(views.html.newsfeed.render(user));
 	}
 
-    public static Result challengePost() {
 
-        return redirect("#");
-    }
 }
