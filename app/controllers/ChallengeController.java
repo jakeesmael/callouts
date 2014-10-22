@@ -189,4 +189,21 @@ public class ChallengeController extends Controller {
 		SqlUpdate update = Ebean.createSqlUpdate(sql);
 		update.execute();
 	}
+
+	/**
+	 * Updates the subject of a challenge
+	 * @param challenger
+	 * @param challenged
+	 * @param time
+	 * @param subject
+	 */
+	public static void updateChallengeSubject(String challenger, String challenged, Timestamp time,
+																						 String newSubject) {
+		String sql = "update challenges set subject = \"" + newSubject + "\"" +
+			" where challenger_username = \"" + challenger + "\"" +
+			" and challenged_username = \"" + challenged + "\"" +
+			" and time = \"" + time + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
+	}
 }
