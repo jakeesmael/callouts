@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import static controllers.UserController.addUser;
@@ -22,6 +23,27 @@ public class Callouts extends Controller {
 	public static class UserForm {
 		public String username;
 		public String password;
+	}
+
+	public static class ChallengeForm {
+		public String challengerUsername;
+		public String challengedUsername;
+		public int wager;
+		public int odds;
+		public String location;
+		public Timestamp time;
+		public String subject;
+
+		public ChallengeForm(String challengerUsername, String challengedUsername, int wager,
+												 int odds, String location, Timestamp time, String subject) {
+			this.challengerUsername = challengerUsername;
+			this.challengedUsername = challengedUsername;
+			this.wager = wager;
+			this.odds = odds;
+			this.location = location;
+			this.time = time;
+			this.subject = subject;
+		}
 	}
 
 	/**
@@ -94,6 +116,22 @@ public class Callouts extends Controller {
 	 */
 	public static void deleteSessionCookie() {
 		response().discardCookie("session_id");
+	}
+
+	/**
+	 * Gets the username of the currently logged in user
+	 * @return username
+	 */
+	public static String getCurrentUsername() {
+		return Crypto.decryptAES(request().cookies().get("session_id").value());
+	}
+
+	/**
+	 * Gets the currently logged in user as a User
+	 * @return user
+	 */
+	public static User getCurrentUser() {
+		return getUserByUsername(getCurrentUsername());
 	}
 
 	/**

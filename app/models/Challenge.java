@@ -10,21 +10,21 @@ import java.sql.Timestamp;
  */
 @Entity
 public class Challenge {
-	private int challengeId;
+	private Integer challengeId;
 	private String challengerUsername;
 	private String challengedUsername;
-	private int wager;
-	private int odds;
+	private Integer wager;
+	private Integer odds;
 	private String location;
 	private Timestamp time;
 	private String subject;
 	private String winner;
 
-	public int getChallengeId() {
+	public Integer getChallengeId() {
 		return challengeId;
 	}
 
-	public void setChallengeId(int challengeId) {
+	public void setChallengeId(Integer challengeId) {
 		this.challengeId = challengeId;
 	}
 
@@ -44,19 +44,19 @@ public class Challenge {
 		this.challengedUsername = challengedUsername;
 	}
 
-	public int getWager() {
+	public Integer getWager() {
 		return wager;
 	}
 
-	public void setWager(int wager) {
+	public void setWager(Integer wager) {
 		this.wager = wager;
 	}
 
-	public int getOdds() {
+	public Integer getOdds() {
 		return odds;
 	}
 
-	public void setOdds(int odds) {
+	public void setOdds(Integer odds) {
 		this.odds = odds;
 	}
 
