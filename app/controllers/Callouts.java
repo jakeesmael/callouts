@@ -164,53 +164,52 @@ public class Callouts extends Controller {
 		}
 	}
 
-    /**
-     *
-     * @return
-     */
-    public static Result challengePost() {
-			DynamicForm requestData = Form.form().bindFromRequest();
-			// get all of the form field inputs from the request
-			String challengerUsername = requestData.get("challengerUsername");
-			String challengedUsername = requestData.get("challengedUsername");
-			int odds = 1;
-			int wager = Integer.parseInt(requestData.get("wager"));
-			String location = requestData.get("location");
-			String subject = requestData.get("subject");
-			// hard code the time and odds for now...
-			Calendar calendar = Calendar.getInstance();
-			Timestamp time = new Timestamp(calendar.getTime().getTime());
+	/**
+	 *
+	 * @return
+	 */
+	public static Result challengePost() {
+		DynamicForm requestData = Form.form().bindFromRequest();
+		// get all of the form field inputs from the request
+		String challengerUsername = requestData.get("challengerUsername");
+		String challengedUsername = requestData.get("challengedUsername");
+		int odds = 1;
+		int wager = Integer.parseInt(requestData.get("wager"));
+		String location = requestData.get("location");
+		String subject = requestData.get("subject");
+		// hard code the time and odds for now...
+		Calendar calendar = Calendar.getInstance();
+		Timestamp time = new Timestamp(calendar.getTime().getTime());
 
-			ChallengeForm challengeForm = new ChallengeForm(challengerUsername, challengedUsername, wager, odds, location, time, subject);
+		ChallengeForm challengeForm = new ChallengeForm(challengerUsername, challengedUsername, wager, odds, location, time, subject);
 
-			if (!ChallengeController.isValidChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time)
-							|| ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null) {
-				return redirect("/");
-			} else {
-				ChallengeController.addChallenge(challengeForm);
-				return redirect("/" + challengedUsername);
-			}
-    }
+		if (!ChallengeController.isValidChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time)
+						|| ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null) {
+			return redirect("/");
+		} else {
+			ChallengeController.addChallenge(challengeForm);
+			return redirect("/" + challengedUsername);
+		}
+	}
 
-    public static Result challengeDelete(String challengerUsername, String challengedUsername, String time, String profileUsername) {
-			ChallengeController.deleteChallenge(challengerUsername, challengedUsername, Timestamp.valueOf(time));
-			return redirect("/" + profileUsername);
-    }
+	public static Result challengeDelete(String challengerUsername, String challengedUsername, String time, String profileUsername) {
+		ChallengeController.deleteChallenge(challengerUsername, challengedUsername, Timestamp.valueOf(time));
+		return redirect("/" + profileUsername);
+	}
 
-    public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time, String profileUsername) {
-			Calendar calendar = Calendar.getInstance();
-			Timestamp oldTime = Timestamp.valueOf(time);
-			Timestamp currentTime = new Timestamp(calendar.getTime().getTime());
-			ChallengeController.updateChallengeTime(challengerUsername, challengedUsername, oldTime, currentTime);
-			return redirect("/" + profileUsername);
-    }
+	public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time, String profileUsername) {
+		Calendar calendar = Calendar.getInstance();
+		Timestamp oldTime = Timestamp.valueOf(time);
+		Timestamp currentTime = new Timestamp(calendar.getTime().getTime());
+		ChallengeController.updateChallengeTime(challengerUsername, challengedUsername, oldTime, currentTime);
+		return redirect("/" + profileUsername);
+	}
 
 	@Security.Authenticated(Secured.class)
 	public static Result profile(String profileUsername) {
 		Http.Cookie sessionCookie = request().cookies().get("session_id");
 		String username = Crypto.decryptAES(sessionCookie.value());
 		User user = UserController.getUserByUsername(username);
-		System.out.println(user.getPoints() +" "+ user.getLevel() +" "+ user.getWins());
 		User profileUser = UserController.getUserByUsername(profileUsername);
 		List<Challenge> sentChallenges= ChallengeController.getSentChallengesByUsername(profileUsername);
 		List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);
