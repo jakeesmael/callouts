@@ -118,11 +118,13 @@
 										<p class="challenger-name">@s.getChallengedUsername()</p>
 										<p class="challenger-level">LVL:</p>
 									</div>
-									@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-										<input type="submit" value="Delete">
-									}
-									@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-										<input type="submit" value="Update Time">
+									@if(user.getUsername() == s.getChallengerUsername()) {
+										@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+											<input type="submit" value="Delete">
+										}
+										@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+											<input type="submit" value="Update Time">
+										}
 									}
 								</li>
 								<hr class="newsfeed-separator">
@@ -154,12 +156,14 @@
 										<p class="challenger-name">@s.getChallengedUsername()</p>
 										<p class="challenger-level">LVL:</p>
 									</div>
-									@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-										<input type="submit" value="Delete">
-									}
-									@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
-										<input type="submit" value="Update Time">
+									@if(user.getUsername() == s.getChallengedUsername()) {
+										@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+											<input type="submit" value="Delete">
 										}
+										@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString())) {
+											<input type="submit" value="Update Time">
+										}
+									}
 								</li>
 								<hr class="newsfeed-separator">
 							}
