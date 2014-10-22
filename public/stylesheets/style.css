@@ -14,3 +14,21 @@ html, body {
     background-color: #EEE;
 }
 
+.navbar {
+    line-height: 46px;
+}
+
+.nav-profile {
+    right: 0;
+    position: absolute;
+}
+
+.nav-link {
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+.nav-link:active, .nav-link:hover {
+    text-decoration: none;
+}
+

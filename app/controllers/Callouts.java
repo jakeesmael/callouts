@@ -109,8 +109,17 @@ public class Callouts extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result profile() {
-		return ok(views.html.profile.render());
+	public static Result profile(String profileUsername) {
+        Http.Cookie sessionCookie = request().cookies().get("session_id");
+        String username = Crypto.decryptAES(sessionCookie.value());
+        User user = UserController.getUserByUsername(username);
+        User profileUser = UserController.getUserByUsername(profileUsername);
+        
+        if (profileUser == null) {
+            return ok(views.html.error.render(user));
+        } else {
+            return ok(views.html.profile.render(user, profileUser));
+        }
 	}
 
 	@Security.Authenticated(Secured.class)
