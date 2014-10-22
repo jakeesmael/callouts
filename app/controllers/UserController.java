@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.List;
 
+import static controllers.Callouts.getCurrentUsername;
+
 public class UserController extends Controller {
 
 	/**
@@ -80,5 +82,16 @@ public class UserController extends Controller {
 			+ newUser.getPassword() + "\");";
 		SqlUpdate insert = Ebean.createSqlUpdate(sql);
 		insert.execute();
+	}
+
+	/**
+	 * Updates the name of a user
+	 * @param name
+	 */
+	public static void updateUserName(String name) {
+		String username = getCurrentUsername();
+		String sql = "update users set name = \"" + name + "\" where username = \"" + username + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
 	}
 }

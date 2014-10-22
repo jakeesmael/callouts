@@ -3,13 +3,14 @@
 # ~~~~
 
 # Home page
-GET         /                    controllers.Callouts.newsfeed()
+GET					/											controllers.Callouts.newsfeed()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET					/assets/*file					controllers.Assets.at(path="/public", file)
 
-GET         /login               controllers.Callouts.login()
-POST        /authenticate        controllers.Callouts.authenticate()
-GET         /signup              controllers.Callouts.signUpGet()
-POST        /signup              controllers.Callouts.signUpPost()
-GET         /:username           controllers.Callouts.profile(username)
+GET					/login								controllers.Callouts.login()
+GET					/logout								controllers.Callouts.logout()
+POST				/authenticate					controllers.Callouts.authenticate()
+GET					/signup								controllers.Callouts.signUpGet()
+POST				/signup								controllers.Callouts.signUpPost()
+GET					/:username						controllers.Callouts.profile(username)
