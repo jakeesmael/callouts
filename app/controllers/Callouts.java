@@ -182,6 +182,7 @@ public class Callouts extends Controller {
 	}
 
     public static Result challengePost() {
+
         return redirect("#");
     }
 }
