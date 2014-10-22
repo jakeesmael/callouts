@@ -1,4 +1,4 @@
-@(user: User, profileUser: User)
+@(user: User, profileUser: User, sentChallenges: List[Challenge], recievedChallenges: List[Challenge])
 @import java.sql.Timestamp;
 
 
@@ -80,6 +80,11 @@
             </div>
             <div class = "col-sm-8 col-sm-offset-1">
                 <h1 id="history-header">Match History</h1>
+                @if(sentChallenges.isEmpty) {
+                    <h2>No challenges</h2>
+                } else {
+                    <h2>@sentChallenges.size challenges</h2>
+                }
                 <div class="content">
                     <ul id="newsfeed">
                         <li class="newsfeed-item">
