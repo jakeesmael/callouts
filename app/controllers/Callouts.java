@@ -58,6 +58,7 @@ public class Callouts extends Controller {
 	public static Result logout() {
 		deleteSessionCookie();
 		return redirect("/login");
+
 	}
 
 	/**
@@ -180,5 +181,7 @@ public class Callouts extends Controller {
         return ok(views.html.newsfeed.render(user));
 	}
 
-
+    public static Result challengePost() {
+        return redirect("#");
+    }
 }

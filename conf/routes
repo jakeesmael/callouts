@@ -12,4 +12,7 @@ GET         /login               controllers.Callouts.login()
 POST        /authenticate        controllers.Callouts.authenticate()
 GET         /signup              controllers.Callouts.signUpGet()
 POST        /signup              controllers.Callouts.signUpPost()
+
+#profile page
 GET         /:username           controllers.Callouts.profile(username)
+POST				/challenge					 controllers.Callouts.challengePost()
