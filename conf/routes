@@ -9,7 +9,7 @@ GET         /                    controllers.Callouts.newsfeed()
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
 
 GET         /login               controllers.Callouts.login()
-GET					/logout							 controllers.Callouts.logout()
+GET         /logout              controllers.Callouts.logout()
 POST        /authenticate        controllers.Callouts.authenticate()
 GET         /signup              controllers.Callouts.signUpGet()
 POST        /signup              controllers.Callouts.signUpPost()
@@ -17,3 +17,6 @@ POST        /signup              controllers.Callouts.signUpPost()
 #profile page
 GET         /:username           controllers.Callouts.profile(username)
 POST        /challenge           controllers.Callouts.challengePost()
+
+DELETE 			/challenge					 controllers.Callouts.challengeDelete(challenger, challenged, time)
+POST				/challengeUpdateTime controllers.Callouts.challengeUpdateTime(challenger, challenged, time)
