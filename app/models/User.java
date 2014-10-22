@@ -7,7 +7,7 @@ import play.db.ebean.*;
  * Created by jakeesmael on 10/20/14.
  */
 @Entity
-public class User {
+public class User extends Model{
 	private String username;
 	private String password;
 	private String name;

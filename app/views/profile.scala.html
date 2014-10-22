@@ -20,7 +20,7 @@
 
 			<div id="challenge-modal">
 				@helper.form(action = routes.Callouts.challengePost()) {
-          @*<div class="col-sm-9">*@
+                    <div class="col-sm-9">
 						<h1> Issue a challenge! </h1>
 						<ul class = "list-unstyled">
 							<li><input type="hidden" value="@user.getUsername()" id="challenger-username" name="challengerUsername"></li>
@@ -83,9 +83,7 @@
                 @if(sentChallenges.isEmpty) {
                     <h2>No challenges</h2>
                 } else {
-                    @for(s <- sentChallenges) {
-                        <li>@s.challengedUsername</li>
-                    }
+                    <h2>@sentChallenges.size Challenges</h2>
                 }
                 <div class="content">
                     <ul id="newsfeed">
