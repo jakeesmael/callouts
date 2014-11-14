@@ -60,9 +60,10 @@ public class ChallengeController extends Controller {
 	 * @return
 	 */
 	public static List<Challenge> getSentChallengesByUsername(String username) {
-		String sql = "select challenger_username, challenged_username, wager, odds, location, time, subject " +
+		String sql = "select * " +
 			"from challenges where challenger_username = \"" + username + "\";";
 		RawSql rawSql = RawSqlBuilder.unparsed(sql)
+			.columnMapping("challenge_id", "challengeId")
 			.columnMapping("challenger_username", "challengerUsername")
 			.columnMapping("challenged_username", "challengedUsername")
 			.columnMapping("wager", "wager")
@@ -70,17 +71,12 @@ public class ChallengeController extends Controller {
 			.columnMapping("location", "location")
 			.columnMapping("time", "time")
 			.columnMapping("subject", "subject")
+			.columnMapping("winner", "winner")
 			.create();
 		Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
-		//List<Challenge> challengeList = Ebean.find(Challenge.class)
-//			.where()
-//			.eq("challenger_username", username)
-//			.findList();
-			//query.findList();
-		List<Challenge> cl = Challenge.find.where()
-			.eq("challenger_username", username)
-			.findList();
-		return cl;//challengeList;
+		List<Challenge> challengeList = query.findList();
+
+		return challengeList;
 	}
 
 	/**
@@ -91,6 +87,7 @@ public class ChallengeController extends Controller {
 	public static List<Challenge> getReceivedChallengesByUsername(String username) {
 		String sql = "select * from challenges where challenged_username = \"" + username + "\";";
 		RawSql rawSql = RawSqlBuilder.unparsed(sql)
+			.columnMapping("challenge_id", "challengeId")
 			.columnMapping("challenger_username", "challengerUsername")
 			.columnMapping("challenged_username", "challengedUsername")
 			.columnMapping("wager", "wager")
@@ -98,13 +95,12 @@ public class ChallengeController extends Controller {
 			.columnMapping("location", "location")
 			.columnMapping("time", "time")
 			.columnMapping("subject", "subject")
+			.columnMapping("winner", "winner")
 			.create();
 		Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
-		//List<Challenge> challengeList = query.findList();
-		List<Challenge> cl = Challenge.find.where()
-			.eq("challenged_username", username)
-			.findList();
-		return cl;//challengeList;
+		List<Challenge> challengeList = query.findList();
+
+		return challengeList;
 	}
 
 	/**
@@ -135,6 +131,7 @@ public class ChallengeController extends Controller {
 			challenged + "\" and time = \"" +
 			time + "\";";
 		RawSql rawSql = RawSqlBuilder.unparsed(sql)
+			.columnMapping("challenge_id", "challengeId")
 			.columnMapping("challenger_username", "challengerUsername")
 			.columnMapping("challenged_username", "challengedUsername")
 			.columnMapping("wager", "wager")
@@ -142,6 +139,7 @@ public class ChallengeController extends Controller {
 			.columnMapping("location", "location")
 			.columnMapping("time", "time")
 			.columnMapping("subject", "subject")
+			.columnMapping("winner", "winner")
 			.create();
 		Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
 		List<Challenge> challengeList = query.findList();

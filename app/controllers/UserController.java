@@ -28,6 +28,7 @@ public class UserController extends Controller {
 		String sql = "select * from users where username = \"" + username + "\";";
 		RawSql rawSql = RawSqlBuilder.unparsed(sql)
 			.columnMapping("username", "username")
+			.columnMapping("password", "password")
 			.columnMapping("name", "name")
 			.columnMapping("points", "points")
 			.columnMapping("wins", "wins")
@@ -35,8 +36,7 @@ public class UserController extends Controller {
 			.columnMapping("level", "level")
 			.create();
 		Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
-//		List<User> userList = query.findList();
-		List<User> userList = User.find.where().eq("username", username).findList();
+		List<User> userList = query.findList();
 
 		User user;
 		if (userList.isEmpty())
