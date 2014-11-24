@@ -12,6 +12,7 @@ public class Bet {
 	private String winner;
 	private int wager;
 	private int challengeId;
+	private String bettor;
 
 	public int getBetId() {
 		return betId;
@@ -43,6 +44,14 @@ public class Bet {
 
 	public void setChallengeId(int challengeId) {
 		this.challengeId = challengeId;
+	}
+
+	public String getBettor() {
+		return bettor;
+	}
+
+	public void setBettor(String bettor) {
+		this.bettor = bettor;
 	}
 
 	public static Model.Finder<Long,Bet> find = new Model.Finder<Long,Bet>(

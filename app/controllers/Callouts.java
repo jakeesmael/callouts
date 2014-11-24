@@ -51,6 +51,14 @@ public class Callouts extends Controller {
 		}
 	}
 
+	public static class BetForm {
+		public String winner;
+		public int wager;
+		public String challenger;
+		public String challenged;
+		public Timestamp time;
+	}
+
 	/**
 	 * returns login page
 	 * @return
