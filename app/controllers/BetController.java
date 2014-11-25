@@ -27,9 +27,9 @@ public class BetController extends Controller {
 		String bettor = getCurrentUsername();
 
 		boolean wasSuccessful = true;
-		/* Make sure they don't bet against themselves. */
+		/* Make sure they don't bet on a challenge involving themselves. */
 		if (bet.wager <= 0 || bet.winner == null || bet.winner.isEmpty() || bet.winner.isEmpty() ||
-			(bet.winner != bettor && bet.challenged == bettor))
+			bet.challenger.equals(bettor) || bet.challenged.equals(bettor))
 			wasSuccessful = false;
 		else {
 			Challenge challenge = getChallenge(bet.challenger, bet.challenged, bet.time);
