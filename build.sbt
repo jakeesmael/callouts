@@ -12,5 +12,5 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
 	"mysql" % "mysql-connector-java" % "5.1.18",
-	"org.mindrot" % "jbcrypt" % "0.3m"
+	"com.typesafe.play.plugins" %% "play-plugins-mailer" % "2.3.1"
 )

@@ -34,6 +34,7 @@ public class UserController extends Controller {
 			.columnMapping("wins", "wins")
 			.columnMapping("losses", "losses")
 			.columnMapping("level", "level")
+			.columnMapping("email", "email")
 			.create();
 		Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
 		List<User> userList = query.findList();
@@ -74,13 +75,21 @@ public class UserController extends Controller {
 	 * @param username
 	 * @param password
 	 */
-	public static void addUser(String username, String password) {
+	public static void addUser(String username, String password, String email) {
 		password = Crypto.sign(password);
-		User newUser = new User(username, password);
 
-		String sql = "insert into users(username, password) values(\""
-			+ newUser.getUsername() + "\", \""
-			+ newUser.getPassword() + "\");";
+		String sql;
+		if (email == null || email.isEmpty()) {
+			sql = "insert into users(username, password) values(\""
+				+ username + "\", \""
+				+ password + "\");";
+		}
+		else {
+			sql = "insert into users(username, password, email) values(\""
+				+ username + "\", \""
+				+ password + "\", \""
+				+ email + "\");";
+		}
 		SqlUpdate insert = Ebean.createSqlUpdate(sql);
 		insert.execute();
 	}
@@ -92,6 +101,17 @@ public class UserController extends Controller {
 	public static void updateUserName(String name) {
 		String username = getCurrentUsername();
 		String sql = "update users set name = \"" + name + "\" where username = \"" + username + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
+	}
+
+	/**
+	 * Updates the email address of a user
+	 * @param email - the user's new email address
+	 */
+	public static void updateEmail(String email) {
+		String username = getCurrentUsername();
+		String sql = "update users set email = \"" + email + "\" where username = \"" + username + "\";";
 		SqlUpdate update = Ebean.createSqlUpdate(sql);
 		update.execute();
 	}

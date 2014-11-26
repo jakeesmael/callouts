@@ -1,8 +1,11 @@
 package controllers;
 
 import com.avaje.ebean.*;
+import com.typesafe.plugin.MailerAPI;
+import com.typesafe.plugin.MailerPlugin;
 import models.User;
 import models.Challenge;
+import play.Play;
 import play.data.Form;
 import play.data.DynamicForm;
 import play.libs.Crypto;
@@ -28,6 +31,12 @@ public class Callouts extends Controller {
 	public static class UserForm {
 		public String username;
 		public String password;
+	}
+
+	public static class SignupForm {
+		public String username;
+		public String password;
+		public String email;
 	}
 
 	public static class ChallengeForm {
@@ -87,17 +96,17 @@ public class Callouts extends Controller {
 	 * @return home page on successful sign up, sign up page if unsuccessful
 	 */
 	public static Result signUpPost() {
-		Form<UserForm> userFormForm = Form.form(UserForm.class);
-		UserForm userForm = userFormForm.bindFromRequest().get();
+		Form<SignupForm> signupFormForm = Form.form(SignupForm.class);
+		SignupForm signupForm = signupFormForm.bindFromRequest().get();
 
 		boolean validSignUp = true;
 
-		if (userForm.username == null || userForm.username.isEmpty()
-			|| userForm.password == null || userForm.password.isEmpty()) {
+		if (signupForm.username == null || signupForm.username.isEmpty()
+			|| signupForm.password == null || signupForm.password.isEmpty()) {
 			validSignUp = false;
 		}
 		else {
-			String sql = "select * from users where username = \"" + userForm.username + "\";";
+			String sql = "select * from users where username = \"" + signupForm.username + "\";";
 			RawSql rawSql = RawSqlBuilder.unparsed(sql).create();
 			Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
 			List<User> userList = query.findList();
@@ -106,8 +115,8 @@ public class Callouts extends Controller {
 			}
 		}
 		if (validSignUp) {
-			addUser(userForm.username, userForm.password);
-			setSessionCookie(userForm.username);
+			addUser(signupForm.username, signupForm.password, signupForm.email);
+			setSessionCookie(signupForm.username);
 			return redirect("/");
 		}
 		else {
@@ -172,10 +181,24 @@ public class Callouts extends Controller {
 		}
 	}
 
+	public static void sendEmail(ChallengeForm challengeForm) {
+		User user = getUserByUsername(challengeForm.challengedUsername);
+		String challenger = challengeForm.challengerUsername;
+
+		if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+			MailerAPI mail = Play.application().plugin(MailerPlugin.class).email();
+			mail.setSubject(challenger + " challenged you!");
+			mail.setRecipient(user.getEmail());
+			mail.setFrom("noreply@callouts.com");
+			mail.send(challenger + " challenged you!\nChallenge: " + challengeForm.subject);
+		}
+	}
+
 	/**
 	 *
 	 * @return
 	 */
+	@Security.Authenticated(Secured.class)
 	public static Result challengePost() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		// get all of the form field inputs from the request
@@ -196,15 +219,18 @@ public class Callouts extends Controller {
 			return redirect("/");
 		} else {
 			ChallengeController.addChallenge(challengeForm);
+			sendEmail(challengeForm);
 			return redirect("/" + challengedUsername);
 		}
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result challengeDelete(String challengerUsername, String challengedUsername, String time, String profileUsername) {
 		ChallengeController.deleteChallenge(challengerUsername, challengedUsername, Timestamp.valueOf(time));
 		return redirect("/" + profileUsername);
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time, String profileUsername) {
 		Calendar calendar = Calendar.getInstance();
 		Timestamp oldTime = Timestamp.valueOf(time);
@@ -225,7 +251,7 @@ public class Callouts extends Controller {
 		if (profileUser == null) {
 			return ok(views.html.error.render(user));
 		} else {
-			return ok(views.html.profile.render(user, profileUser,sentChallenges,receivedChallenges));
+			return ok(views.html.profile.render(user, profileUser, sentChallenges, receivedChallenges));
 		}
 	}
 
@@ -237,5 +263,11 @@ public class Callouts extends Controller {
 		return ok(views.html.newsfeed.render(user));
 	}
 
+	@Security.Authenticated(Secured.class)
+	public static Result settings() {
+		String username = getCurrentUsername();
+		User user = UserController.getUserByUsername(username);
 
+		return ok(views.html.settings.render(user));
+	}
 }

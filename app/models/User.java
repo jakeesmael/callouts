@@ -18,6 +18,7 @@ public class User extends Model{
 	private Integer wins;
 	private Integer losses;
 	private Integer level;
+	private String email;
 
 	public User() {}
 
@@ -84,6 +85,14 @@ public class User extends Model{
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public static Model.Finder<Long,User> find = new Model.Finder<Long,User>(

@@ -32,3 +32,7 @@ html, body {
     text-decoration: none;
 }
 
+.settings-link {
+	right: 70px;
+	position: absolute;
+}
