@@ -115,4 +115,11 @@ public class UserController extends Controller {
 		SqlUpdate update = Ebean.createSqlUpdate(sql);
 		update.execute();
 	}
+
+	public static void updatePassword(String password) {
+		String username = getCurrentUsername();
+		String sql = "update users set password = \"" + Crypto.sign(password) + "\" where username = \"" + username + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
+	}
 }

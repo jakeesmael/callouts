@@ -10,7 +10,8 @@ function addListeners() {
 			current = "New Password";
 		else
 			current = $(this).parent().prev().html();
-		var input = "<input placeholder='" + current + "'>";
+		var type = $(this).attr("data-edit");
+		var input = "<input placeholder='" + current + "' id='" + type + "'>";
 		$(this).parent().prev().html(input);
 		$(this).hide();
 		$(this).next().show();
@@ -18,8 +19,20 @@ function addListeners() {
 	});
 
 	/* Save */
-	$("btn-primary").click(function() {
-
+	$(".btn-primary").click(function() {
+		var type = $(this).attr("data-edit");
+		type = "#" + type;
+		var input = $(type).val();
+		if (input != "") {
+			saveSettings(type.substring(1), input);
+		}
+		if (type.substring(1) != "password")
+			$(this).parent().prev().html(input);
+		else
+			$(this).parent().prev().html("Omitted for security");
+		$(this).hide();
+		$(this).next().hide();
+		$(this).prev().show();
 	});
 
 	/* Cancel */
@@ -28,5 +41,18 @@ function addListeners() {
 		$(this).hide();
 		$(this).prev().hide();
 		$(this).prev().prev().show();
+	});
+}
+
+function saveSettings(type, input) {
+	var data = {
+		type: type,
+		input: input
+	}
+	$.ajax({
+		url: "/editSettings",
+		type: "POST",
+		data: JSON.stringify(data),
+		contentType: "application/json"
 	});
 }

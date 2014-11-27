@@ -13,7 +13,8 @@ GET         /logout                     controllers.Callouts.logout()
 POST        /authenticate               controllers.Callouts.authenticate()
 GET         /signup                     controllers.Callouts.signUpGet()
 POST        /signup                     controllers.Callouts.signUpPost()
-GET					/settings										controllers.Callouts.settings()
+GET         /settings                   controllers.Callouts.settings()
+POST				/editSettings								controllers.Callouts.editSettings()
 
 #profile page
 GET         /:username                  controllers.Callouts.profile(username)

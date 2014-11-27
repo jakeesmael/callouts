@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
 import models.User;
@@ -9,18 +10,13 @@ import play.Play;
 import play.data.Form;
 import play.data.DynamicForm;
 import play.libs.Crypto;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import play.mvc.Http;
+import play.mvc.*;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Calendar;
 
-import static controllers.UserController.addUser;
-import static controllers.UserController.correctPassword;
-import static controllers.UserController.getUserByUsername;
+import static controllers.UserController.*;
 
 
 /**
@@ -269,5 +265,24 @@ public class Callouts extends Controller {
 		User user = UserController.getUserByUsername(username);
 
 		return ok(views.html.settings.render(user));
+	}
+
+	@Security.Authenticated(Secured.class)
+	public static Result editSettings() {
+		String username = getCurrentUsername();
+		JsonNode json = request().body().asJson();
+		switch (json.findPath("type").textValue()) {
+			case "name":
+				updateUserName(json.findPath("input").textValue());
+				break;
+			case "email":
+				updateEmail(json.findPath("input").textValue());
+				break;
+			case "password":
+				updatePassword(json.findPath("input").textValue());
+				break;
+		}
+
+		return ok();
 	}
 }
