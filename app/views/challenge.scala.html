@@ -30,11 +30,11 @@
 							<p class="challenger-wager">@challenge.getWager()</p>
 							<div class="challenger-icon"></div>
 							<p class="challenger-name">@challenge.getChallengerUsername()</p>
-							<p class="challenger-level">LVL 5</p>
+							<p class="challenger-level">LVL: @challenge.getChallenger().getLevel()</p>
 						</div>
 						<div class="challenge-content">
 							<h3 class="challenge-description">
-								@challenge.getSubject()
+								@challenge.getSubject() by @challenge.getTime()
 							</h3>
 							<div class="challenge-stats">
 								<div class="challenge-left-odds">
@@ -49,8 +49,16 @@
 							<p class="challenger-wager">@challenge.getWager()</p>
 							<div class="challenger-icon"></div>
 							<p class="challenger-name">@challenge.getChallengedUsername</p>
-							<p class="challenger-level">LVL 5</p>
+							<p class="challenger-level">LVL: @challenge.getChallenged().getLevel()</p>
 						</div>
+						@if(user.getUsername() == challenge.getChallengedUsername() || user.getUsername() == challenge.getChallengerUsername()) {
+							@helper.form(action = routes.Callouts.challengeDelete(challenge.getChallengerUsername(), challenge.getChallengedUsername(), challenge.getTime().toString())) {
+								<input type="submit" value="Delete">
+							}
+							@helper.form(action = routes.Callouts.challengeUpdateTime(challenge.getChallengerUsername(), challenge.getChallengedUsername(), challenge.getTime().toString(), Integer.toString(challenge.getChallengeId()))) {
+								<input type="submit" value="Update Time">
+							}
+						}
 					</li>
 				</ul>
 			</div>

@@ -20,8 +20,8 @@ POST        /editSettings               controllers.Callouts.editSettings()
 GET         /:username                  controllers.Callouts.profile(username)
 POST        /challenge                  controllers.Callouts.challengePost()
 
-POST        /challengeDelete            controllers.Callouts.challengeDelete(challenger, challenged, time, profileUsername)
-POST        /challengeUpdateTime        controllers.Callouts.challengeUpdateTime(challenger, challenged, time, profileUsername)
+POST        /challengeDelete            controllers.Callouts.challengeDelete(challenger, challenged, time)
+POST        /challengeUpdateTime        controllers.Callouts.challengeUpdateTime(challenger, challenged, time, challengeId)
 
 #challenge page
 GET					/challenge/:encryptedChallengeId			controllers.Callouts.challengeGet(encryptedChallengeId)

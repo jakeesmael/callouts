@@ -232,18 +232,18 @@ public class Callouts extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result challengeDelete(String challengerUsername, String challengedUsername, String time, String profileUsername) {
+	public static Result challengeDelete(String challengerUsername, String challengedUsername, String time) {
 		ChallengeController.deleteChallenge(challengerUsername, challengedUsername, Timestamp.valueOf(time));
-		return redirect("/" + profileUsername);
+		return redirect("/");
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time, String profileUsername) {
+	public static Result challengeUpdateTime(String challengerUsername, String challengedUsername, String time, String challengeId) {
 		Calendar calendar = Calendar.getInstance();
 		Timestamp oldTime = Timestamp.valueOf(time);
 		Timestamp currentTime = new Timestamp(calendar.getTime().getTime());
 		ChallengeController.updateChallengeTime(challengerUsername, challengedUsername, oldTime, currentTime);
-		return redirect("/" + profileUsername);
+		return redirect("/challenge/" + Crypto.encryptAES(challengeId));
 	}
 
 	@Security.Authenticated(Secured.class)
