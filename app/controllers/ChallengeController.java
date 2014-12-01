@@ -55,6 +55,32 @@ public class ChallengeController extends Controller {
 	}
 
 	/**
+	 * Gets a number of the most recent challenges
+	 * @param number, the number of most recent challenges you want to fetch
+	 * @return
+	 */
+	public static List<Challenge> getMostRecentChallenges(int number) {
+		String sql = "select * " +
+			"from challenges ORDER BY challenge_id DESC LIMIT " + number + ";";
+		RawSql rawSql = RawSqlBuilder.unparsed(sql)
+			.columnMapping("challenge_id", "challengeId")
+			.columnMapping("challenger_username", "challengerUsername")
+			.columnMapping("challenged_username", "challengedUsername")
+			.columnMapping("wager", "wager")
+			.columnMapping("odds", "odds")
+			.columnMapping("location", "location")
+			.columnMapping("time", "time")
+			.columnMapping("subject", "subject")
+			.columnMapping("winner", "winner")
+			.create();
+		Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
+		List<Challenge> challengeList = query.findList();
+
+		return challengeList;
+	}
+
+
+	/**
 	 * Gets the challenges sent by the user identified by username
 	 * @param username
 	 * @return

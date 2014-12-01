@@ -267,7 +267,8 @@ public class Callouts extends Controller {
 		Http.Cookie sessionCookie = request().cookies().get("session_id");
 		String username = Crypto.decryptAES(sessionCookie.value());
 		User user = UserController.getUserByUsername(username);
-		return ok(views.html.newsfeed.render(user));
+		List<Challenge> topChallenges = ChallengeController.getMostRecentChallenges(10);
+		return ok(views.html.newsfeed.render(user,topChallenges));
 	}
 
 	@Security.Authenticated(Secured.class)
