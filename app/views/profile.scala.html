@@ -94,7 +94,7 @@
 										<p class="challenger-wager">@s.getWager()</p>
 										<div class="challenger-icon"></div>
 										<p class="challenger-name">@s.getChallengerUsername()</p>
-										<p class="challenger-level">LVL:</p>
+										<p class="challenger-level">LVL: @s.getChallenger().getLevel()</p>
 									</div>
 									<div class="challenge-content">
 										<a class="challenge-description" href="/challenge/@Crypto.encryptAES(Integer.toString(s.getChallengeId()))">
@@ -113,16 +113,16 @@
 										<p class="challenger-wager">@s.getWager()</p>
 										<div class="challenger-icon"></div>
 										<p class="challenger-name">@s.getChallengedUsername()</p>
-										<p class="challenger-level">LVL:</p>
+										<p class="challenger-level">LVL: @s.getChallenged.getLevel</p>
 									</div>
-									@if(user.getUsername() == s.getChallengerUsername()) {
-										@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString(), profileUser.getUsername())) {
-											<input type="submit" value="Delete">
-										}
-										@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString(), profileUser.getUsername())) {
-											<input type="submit" value="Update Time">
-										}
-									}
+									@*@if(user.getUsername() == s.getChallengerUsername()) {*@
+										@*@helper.form(action = routes.Callouts.challengeDelete(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString(), profileUser.getUsername())) {*@
+											@*<input type="submit" value="Delete">*@
+										@*}*@
+										@*@helper.form(action = routes.Callouts.challengeUpdateTime(s.getChallengerUsername(), s.getChallengedUsername(), s.getTime().toString(), profileUser.getUsername())) {*@
+											@*<input type="submit" value="Update Time">*@
+										@*}*@
+									@*}*@
 								</li>
 								<hr class="newsfeed-separator">
 							}
@@ -136,7 +136,7 @@
 										<p class="challenger-wager">@r.getWager()</p>
 										<div class="challenger-icon"></div>
 										<p class="challenger-name">@r.getChallengerUsername()</p>
-										<p class="challenger-level">LVL:</p>
+										<p class="challenger-level">LVL: @r.getChallenger().getLevel()</p>
 									</div>
 									<div class="challenge-content">
 										<a class="challenge-description" href="/challenge/@Crypto.encryptAES(Integer.toString(r.getChallengeId()))">
@@ -155,16 +155,16 @@
 										<p class="challenger-wager">@r.getWager()</p>
 										<div class="challenger-icon"></div>
 										<p class="challenger-name">@r.getChallengedUsername()</p>
-										<p class="challenger-level">LVL:</p>
+										<p class="challenger-level">LVL: @r.getChallenged.getLevel()</p>
 									</div>
-									@if(user.getUsername() == r.getChallengedUsername()) {
-										@helper.form(action = routes.Callouts.challengeDelete(r.getChallengerUsername(), r.getChallengedUsername(), r.getTime().toString(), profileUser.getUsername())) {
-											<input type="submit" value="Delete">
-										}
-										@helper.form(action = routes.Callouts.challengeUpdateTime(r.getChallengerUsername(), r.getChallengedUsername(), r.getTime().toString(), profileUser.getUsername())) {
-											<input type="submit" value="Update Time">
-										}
-									}
+									@*@if(user.getUsername() == r.getChallengedUsername()) {*@
+										@*@helper.form(action = routes.Callouts.challengeDelete(r.getChallengerUsername(), r.getChallengedUsername(), r.getTime().toString(), profileUser.getUsername())) {*@
+											@*<input type="submit" value="Delete">*@
+										@*}*@
+										@*@helper.form(action = routes.Callouts.challengeUpdateTime(r.getChallengerUsername(), r.getChallengedUsername(), r.getTime().toString(), profileUser.getUsername())) {*@
+											@*<input type="submit" value="Update Time">*@
+										@*}*@
+									@*}*@
 								</li>
 								<hr class="newsfeed-separator">
 							}

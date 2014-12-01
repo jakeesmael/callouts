@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.annotation.Sql;
+import controllers.UserController;
 import play.db.ebean.Model;
 
 import javax.persistence.Column;
@@ -99,4 +100,9 @@ public class Challenge extends Model {
 	public static Model.Finder<Long,Challenge> find = new Model.Finder<Long,Challenge>(
 		Long.class, Challenge.class
 	);
+
+    public User getChallenger() { return UserController.getUserByUsername(getChallengerUsername()); }
+
+    public User getChallenged() { return UserController.getUserByUsername(getChallengedUsername()); }
+
 }
