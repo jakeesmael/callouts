@@ -190,10 +190,21 @@ public class Callouts extends Controller {
 		}
 	}
 
-	/**
-	 *
-	 * @return
-	 */
+    @Security.Authenticated(Secured.class)
+    public static Result challengeGet(String encryptedChallengeId) {
+        Http.Cookie sessionCookie = request().cookies().get("session_id");
+        String username = Crypto.decryptAES(sessionCookie.value());
+        int challengeId = Integer.parseInt(Crypto.decryptAES(encryptedChallengeId));
+        User user = UserController.getUserByUsername(username);
+        Challenge challenge = ChallengeController.getChallengeById(challengeId);
+
+        if (challenge == null) {
+            return ok(views.html.error.render(user));
+        } else {
+            return ok(views.html.challenge.render(user, challenge));
+        }
+    }
+
 	@Security.Authenticated(Secured.class)
 	public static Result challengePost() {
 		DynamicForm requestData = Form.form().bindFromRequest();

@@ -151,6 +151,31 @@ public class ChallengeController extends Controller {
 		return challenge;
 	}
 
+    public static Challenge getChallengeById(int challengeId) {
+        Challenge challenge;
+
+        String sql = "select * from challenges where challenge_id = \"" + challengeId + "\";";
+        RawSql rawSql = RawSqlBuilder.unparsed(sql)
+                .columnMapping("challenge_id", "challengeId")
+                .columnMapping("challenger_username", "challengerUsername")
+                .columnMapping("challenged_username", "challengedUsername")
+                .columnMapping("wager", "wager")
+                .columnMapping("odds", "odds")
+                .columnMapping("location", "location")
+                .columnMapping("time", "time")
+                .columnMapping("subject", "subject")
+                .columnMapping("winner", "winner")
+                .create();
+        Query<Challenge> query = Ebean.find(Challenge.class).setRawSql(rawSql);
+        List<Challenge> challengeList = query.findList();
+        if (challengeList.isEmpty())
+            challenge = null;
+        else
+            challenge = challengeList.get(0);
+
+        return challenge;
+    }
+
 	/**
 	 * Deletes a challenge based on the challenger, challenged, and time
 	 * @param challenger

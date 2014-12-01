@@ -1,0 +1,59 @@
+@(user: User, challenge: Challenge)
+
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/style.css")'>
+		<link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/profile.css")'>
+		<link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/newsfeed.css")'>
+		<link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
+		<link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap-theme.min.css")'>
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+		<title>Profile</title>
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
+			<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+			<a class="nav-home nav-link" href="/">Callouts</a>
+			<a href="/logout">Logout</a>
+		</div>
+		<div class="container">
+			<div class="content">
+				<ul id="newsfeed">
+					<li class="newsfeed-item">
+						<div class="challenger">
+							<p class="challenger-wager">@challenge.getWager()</p>
+							<div class="challenger-icon"></div>
+							<p class="challenger-name">@challenge.getChallengerUsername()</p>
+							<p class="challenger-level">LVL 5</p>
+						</div>
+						<div class="challenge-content">
+							<h3 class="challenge-description">
+								@challenge.getSubject()
+							</h3>
+							<div class="challenge-stats">
+								<div class="challenge-left-odds">
+									<h4 class="challenge-left-percent">50%</h4>
+								</div>
+								<div class="challenge-right-odds">
+									<h4 class="challenge-right-percent">50%</h4>
+								</div>
+							</div>
+						</div>
+						<div class="challenger">
+							<p class="challenger-wager">@challenge.getWager()</p>
+							<div class="challenger-icon"></div>
+							<p class="challenger-name">@challenge.getChallengedUsername</p>
+							<p class="challenger-level">LVL 5</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,5 +1,6 @@
 @(user: User, profileUser: User, sentChallenges: List[Challenge], receivedChallenges: List[Challenge])
 @import java.sql.Timestamp;
+@import play.libs.Crypto;
 
 
 <!DOCTYPE html>
@@ -48,10 +49,10 @@
             </div>
 		</div>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-				<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
+			<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
 			<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
 			<a class="nav-home nav-link" href="/">Callouts</a>
-				<a href="/logout">Logout</a>
+			<a href="/logout">Logout</a>
 		</div>
     <div class="container" id="content">
         <div class = "row">
@@ -96,9 +97,9 @@
 										<p class="challenger-level">LVL:</p>
 									</div>
 									<div class="challenge-content">
-										<h3 class="challenge-description">
+										<a class="challenge-description" href="/challenge/@Crypto.encryptAES(Integer.toString(s.getChallengeId()))">
 											@s.getSubject() by @s.getTime() .
-										</h3>
+										</a>
 										<div class="challenge-stats">
 											<div class="challenge-left-odds">
 												<h4 class="challenge-left-percent">@s.getOdds() %</h4>
@@ -138,9 +139,9 @@
 										<p class="challenger-level">LVL:</p>
 									</div>
 									<div class="challenge-content">
-										<h3 class="challenge-description">
+										<a class="challenge-description" href="/challenge/@Crypto.encryptAES(Integer.toString(r.getChallengeId()))">
 											@r.getSubject() by @r.getTime() .
-										</h3>
+										</a>
 										<div class="challenge-stats">
 											<div class="challenge-left-odds">
 												<h4 class="challenge-left-percent">@r.getOdds() %</h4>
