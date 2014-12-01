@@ -27,6 +27,7 @@ CREATE TABLE `bets` (
   `winner` varchar(15) NOT NULL,
   `wager` int(11) NOT NULL DEFAULT '0',
   `challenge_id` int(11) NOT NULL,
+  `bettor` varchar(15) NOT NULL,
   PRIMARY KEY (`bet_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -51,7 +52,7 @@ CREATE TABLE `challenges` (
   `challenge_id` int(11) NOT NULL AUTO_INCREMENT,
   `challenger_username` varchar(15) NOT NULL,
   `challenged_username` varchar(15) NOT NULL,
-  `wager` int(11) NOT NULL,
+  `wager` int(11) NOT NULL DEFAULT '1',
   `odds` int(11) NOT NULL DEFAULT '1',
   `location` varchar(30) DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -71,6 +72,27 @@ LOCK TABLES `challenges` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `test`
+--
+
+DROP TABLE IF EXISTS `test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `test` (
+  `id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test`
+--
+
+LOCK TABLES `test` WRITE;
+/*!40000 ALTER TABLE `test` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -84,7 +106,8 @@ CREATE TABLE `users` (
   `points` int(11) DEFAULT '20',
   `wins` int(11) DEFAULT '0',
   `losses` int(11) DEFAULT '0',
-  `level` int(11) DEFAULT '0'
+  `level` int(11) DEFAULT '0',
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -106,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-19 22:43:36
+-- Dump completed on 2014-11-30 22:02:47
