@@ -62,6 +62,14 @@ public class Callouts extends Controller {
 		public String challenger;
 		public String challenged;
 		public Timestamp time;
+
+        public BetForm(String winner, int wager, String challenger, String challenged, Timestamp time) {
+            this.winner = winner;
+            this.wager = wager;
+            this.challenger = challenger;
+            this.challenged = challenged;
+            this.time = time;
+        }
 	}
 
 	/**
@@ -246,7 +254,30 @@ public class Callouts extends Controller {
 		return redirect("/challenge/" + Crypto.encryptAES(challengeId));
 	}
 
-	@Security.Authenticated(Secured.class)
+    @Security.Authenticated(Secured.class)
+    public static Result betPost(String challengeId) {
+        Http.Cookie sessionCookie = request().cookies().get("session_id");
+        String username = Crypto.decryptAES(sessionCookie.value());
+        User user = UserController.getUserByUsername(username);
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String winner = requestData.get("winner");
+        String challenger = requestData.get("challenger");
+        String challenged = requestData.get("challenged");
+        Calendar calendar = Calendar.getInstance();
+        Timestamp time = Timestamp.valueOf(requestData.get("time"));
+        int bet = Integer.parseInt(requestData.get("bet"));
+
+        BetForm betForm = new BetForm(winner, bet, challenger, challenged, time);
+
+        if (bet > user.getPoints() || bet < 1) {
+            return redirect("/challenge/" + Crypto.encryptAES(challengeId));
+        } else {
+            BetController.addBet(betForm);
+            return redirect("/challenge/" + Crypto.encryptAES(challengeId));
+        }
+    }
+
+    @Security.Authenticated(Secured.class)
 	public static Result profile(String profileUsername) {
 		Http.Cookie sessionCookie = request().cookies().get("session_id");
 		String username = Crypto.decryptAES(sessionCookie.value());
