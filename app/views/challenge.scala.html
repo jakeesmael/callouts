@@ -29,12 +29,12 @@
 						<div class="challenger">
 							<p class="challenger-wager">@challenge.getWager()</p>
 							<div class="challenger-icon"></div>
-							<p class="challenger-name">@challenge.getChallengerUsername()</p>
+							<a class="challenger-name" href="/@challenge.getChallengerUsername()">@challenge.getChallengerUsername()</a>
 							<p class="challenger-level">LVL: @challenge.getChallenger().getLevel()</p>
 						</div>
 						<div class="challenge-content">
 							<h3 class="challenge-description">
-								@challenge.getSubject() by @challenge.getTime()
+								@challenge.getSubject() by @challenge.getTime() at @challenge.getLocation()
 							</h3>
 							<div class="challenge-stats">
 								<div class="challenge-left-odds">
@@ -48,7 +48,7 @@
 						<div class="challenger">
 							<p class="challenger-wager">@challenge.getWager()</p>
 							<div class="challenger-icon"></div>
-							<p class="challenger-name">@challenge.getChallengedUsername</p>
+							<a class="challenger-name" href="/@challenge.getChallengedUsername()">@challenge.getChallengedUsername</a>
 							<p class="challenger-level">LVL: @challenge.getChallenged().getLevel()</p>
 						</div>
 						@if(user.getUsername() == challenge.getChallengedUsername() || user.getUsername() == challenge.getChallengerUsername()) {
@@ -58,6 +58,8 @@
 							@helper.form(action = routes.Callouts.challengeUpdateTime(challenge.getChallengerUsername(), challenge.getChallengedUsername(), challenge.getTime().toString(), Integer.toString(challenge.getChallengeId()))) {
 								<input type="submit" value="Update Time">
 							}
+						} else {
+							<input type="submit" value="Place Bet"/>
 						}
 					</li>
 				</ul>
