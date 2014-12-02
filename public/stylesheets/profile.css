@@ -5,6 +5,10 @@
 	text-align: center;
 }
 
+#bets-header {
+    text-align: center;
+}
+
 #challenge-overlay {
     display: none;
     position: absolute;
@@ -31,4 +35,25 @@
 
 #cancel-button-div {
     position: relative;
+}
+
+#content-row {
+    left: 10%;
+    right: 10%;
+    position: absolute;
+}
+
+#bet-challenger-name {
+    font-size: 20px;
+}
+
+#bet-challenger {
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#bet-info {
+    padding-left: 15px;
+    padding-right: 15px;
 }
