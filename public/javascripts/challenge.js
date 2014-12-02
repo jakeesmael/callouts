@@ -16,5 +16,9 @@ $(document).ready(function() {
         $('#challenge-overlay').fadeToggle("fast");
     });*/
 
-    //$('#datetimepicker1').datepicker();
+    $('#datetimepicker').datetimepicker({
+        format: "dd MM yyyy - hh:ii",
+        autoclose: true,
+        startDate: Date.toString(Date.now())
+    });
 });
