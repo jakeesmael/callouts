@@ -55,8 +55,8 @@
 		<a href="/logout">Logout</a>
 	</div>
 	<div class="container" id="content">
-		<div class = "row">
-			<div class = "col-sm-3">
+		<div class = "row" id="content-row">
+			<div class = "col-sm-2">
 				<div class="sidebar-module sidebar-module-inset">
 					<h1>Profile picture</h1>
 					<ul class = "list-unstyled">
@@ -81,7 +81,7 @@
 					}
 				</div>
 			</div>
-				<div class = "col-sm-8 col-sm-offset-1">
+				<div class = "col-sm-7">
 					<h1 id="history-header">Match History</h1>
 					<div class="content">
 						<ul id="newsfeed">
@@ -155,6 +155,29 @@
 									<hr class="newsfeed-separator">
 								}
 							}
+						</ul>
+					</div>
+				</div>
+				<div class = "col-sm-3">
+					<h1 id="bets-header">Bets</h1>
+					<div class="content">
+						<ul id="newsfeed">
+							<li class="newsfeed-item">
+								<div class="col-md-6" id="bet-challenger">
+									<a class="challenger-name" id="bet-challenger-name" href="#">Challenger</a>
+									<p class="challenger-level">LVL: #</p>
+								</div>
+								<div class="col-md-6" id="bet-challenger">
+									<a class="challenger-name" id="bet-challenger-name" href="#">Challenged</a>
+									<p class="challenger-level">LVL: #</p>
+								</div>
+								<ul class="list-unstyled" id="bet-info">
+									<li>Subject</li>
+									<li>Time to completion OR result</li>
+									<li>Bet amount</li>
+								</ul>
+							</li>
+							<hr class="newsfeed-separator">
 						</ul>
 					</div>
 				</div>
