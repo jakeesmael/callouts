@@ -311,9 +311,6 @@ public class Callouts extends Controller {
 		User profileUser = UserController.getUserByUsername(profileUsername);
 		List<Challenge> sentChallenges= ChallengeController.getSentChallengesByUsername(profileUsername);
 		List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);
-		List<Bet> bets = BetController.getPlacedBets(profileUsername);
-		System.out.println(bets.size());
-
 		List<Bet> bets = getPlacedBetsChallenges(username);
 
 		if (profileUser == null) {

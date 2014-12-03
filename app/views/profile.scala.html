@@ -163,21 +163,30 @@
 						<ul id="newsfeed">
 							<li class="newsfeed-item">
 								@if(bets.isEmpty) {
-								<h2>No bets bla bla bla bla</h2>
-							}
-								<div class="col-md-6" id="bet-challenger">
-									<a class="challenger-name" id="bet-challenger-name" href="#">Challenger</a>
-									<p class="challenger-level">LVL: #</p>
-								</div>
-								<div class="col-md-6" id="bet-challenger">
-									<a class="challenger-name" id="bet-challenger-name" href="#">Challenged</a>
-									<p class="challenger-level">LVL: #</p>
-								</div>
-								<ul class="list-unstyled" id="bet-info">
-									<li>Subject</li>
-									<li>Time to completion OR result</li>
-									<li>Bet amount</li>
-								</ul>
+								<h2>No bets have been made!</h2>
+								} else {
+									@for(b <- bets) {
+										<div class="col-md-6" id="bet-challenger">
+											<div class="bet-challenger-icon"></div>
+											<a class="challenger-name" id="bet-challenger-name" href="#">@b.getChallenge().getChallengerUsername()</a>
+											<!-- <p class="challenger-level">LVL: #</p> -->
+										</div>
+										<div class="col-md-6" id="bet-challenger">
+											<div class="bet-challenger-icon"></div>
+											<a class="challenger-name" id="bet-challenger-name" href="#">@b.getChallenge().getChallengedUsername()</a>
+											<!-- <p class="challenger-level">LVL: #</p> -->
+										</div>
+										<ul class="list-unstyled" id="bet-info">
+											<li>Subject: @b.getChallenge().getSubject()</li>
+											@if(b.getChallenge().getWinner() == null){
+												<li>Time remaining: @b.getChallenge().getTime()</li>
+											} else {
+												<li>Winner: @b.getChallenge().getWinner()</li>
+											}
+											<li>Your wager: @b.getWager()</li>
+										</ul>
+									}
+								}
 							</li>
 							<hr class="newsfeed-separator">
 						</ul>

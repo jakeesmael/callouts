@@ -18,15 +18,15 @@ public class Bet {
 	private String subject;
 	private Challenge challenge;
 
-	public Bet(int betId, String winner, int wager, int challengeId, String bettor,
-						String challengerUsername, String challengedUsername, int odds, Timestamp time, String subject) {
+	public Bet(int betId, String predictedWinner, int wager, int challengeId, String bettor,
+						String challengerUsername, String challengedUsername, int odds, Timestamp time, String subject, String winner) {
 		this.betId = betId;
-		this.winner = winner;
+		this.winner = predictedWinner;
 		this.wager = wager;
 		this.challengeId = challengeId;
 		this.bettor = bettor;
 		this.subject = subject;
-		this.challenge = new Challenge(challengeId, challengerUsername, challengedUsername, odds, time, subject);
+		this.challenge = new Challenge(challengeId, challengerUsername, challengedUsername, odds, time, subject, winner);
 	}
 
 	public int getBetId() {
@@ -67,6 +67,14 @@ public class Bet {
 
 	public void setBettor(String bettor) {
 		this.bettor = bettor;
+	}
+
+	public void setChallenge(Challenge challenge) {
+		this.challenge = challenge;
+	}
+
+	public Challenge getChallenge() {
+		return challenge;
 	}
 
 	public static Model.Finder<Long,Bet> find = new Model.Finder<Long,Bet>(

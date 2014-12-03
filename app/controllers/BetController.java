@@ -93,12 +93,13 @@ public class BetController extends Controller {
 		return betList;
 	}
 
-	 * Gets all bets that a user has placed
+	 /* Gets all bets that a user has placed
 	 * @param username
 	 * @return betList - the list of bets made by a user
 	 */
 	public static List<Bet> getPlacedBetsChallenges(String username) {
 
+		List<Bet> betList = new ArrayList<Bet>();
 		Connection con = null;
 		try {
 			con = DriverManager.getConnection(
@@ -117,7 +118,7 @@ public class BetController extends Controller {
 			/* For each row */
 			while (resultSet.next()) {
 				int betId = resultSet.getInt("b.bet_id");
-				String winner = resultSet.getString("b.winner");
+				String predictedWinner = resultSet.getString("b.winner");
 				int wager = resultSet.getInt("b.wager");
 				int challengeId = resultSet.getInt("b.challenge_id");
 				String bettor = resultSet.getString("b.bettor");
@@ -126,15 +127,15 @@ public class BetController extends Controller {
 				int odds = resultSet.getInt("c.odds");
 				Timestamp time = resultSet.getTimestamp("c.time");
 				String subject = resultSet.getString("c.subject");
-				Bet bet = new Bet(betId, winner, wager, challengeId, bettor, challengerUsername, challengedUsername,
-					odds, time, subject);
-				/* add each bet to the list here */
+				String winner = resultSet.getString("c.winner");
+				Bet bet = new Bet(betId, predictedWinner, wager, challengeId, bettor, challengerUsername, challengedUsername,
+					odds, time, subject, winner);
+				betList.add(bet);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return null;
-//		return betList;
+		return betList;
 	}
 }

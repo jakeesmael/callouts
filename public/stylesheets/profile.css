@@ -1,3 +1,10 @@
+.bet-challenger-icon {
+    margin: 0 auto;
+    width: 40px;
+    height: 40px;
+    background-color: #000000;
+}
+
 #statistics {
 	background-color: #F4F4F4;
 }
@@ -32,4 +39,9 @@
 #bet-info {
     padding-left: 15px;
     padding-right: 15px;
+    display: inline-block; 
+}
+
+#betlist-item{
+    display: inline-block; 
 }

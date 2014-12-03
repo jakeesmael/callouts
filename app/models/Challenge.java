@@ -26,13 +26,14 @@ public class Challenge extends Model {
 	private String winner;
 
 	public Challenge(int challengeId, String challengerUsername, String challengedUsername,
-									 int odds, Timestamp time, String subject) {
+									 int odds, Timestamp time, String subject, String winner) {
 		this.challengeId = challengeId;
 		this.challengerUsername = challengerUsername;
 		this.challengedUsername = challengedUsername;
 		this.odds = odds;
 		this.time = time;
 		this.subject = subject;
+		this.winner = winner;
 	}
 
 	public Integer getChallengeId() {
