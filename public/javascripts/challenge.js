@@ -5,15 +5,18 @@ $(document).ready(function() {
 
     $('#challenge-button').click(function() {
         $('.overlay').fadeToggle("fast");
+        $('.modal').fadeToggle("fast");
     });
 
     $('#cancel-button').click(function() {
         $('.overlay').fadeToggle("fast");
+        $('.modal').fadeToggle("fast");
     })
 
+    var nowDate = new Date();
     $('#datetimepicker').datetimepicker({
-        format: "dd MM yyyy - hh:ii",
+        format: "yyyy-mm-dd hh:ii:ss",
         autoclose: true,
-        startDate: Date.toString(Date.now())
+        startDate: nowDate
     });
 });

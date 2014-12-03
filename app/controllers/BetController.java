@@ -46,6 +46,12 @@ public class BetController extends Controller {
 		return wasSuccessful;
 	}
 
+    public static void deleteBet(int betId) {
+        String sql = "delete from bets where bet_id = \"" + betId + "\";";
+        SqlUpdate delete = Ebean.createSqlUpdate(sql);
+        delete.execute();
+    }
+
 	/**
 	 * Gets all bets that a user has placed
 	 * @param username

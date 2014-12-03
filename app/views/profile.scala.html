@@ -29,13 +29,12 @@
 					<li><input type="hidden" value="@user.getUsername()" id="challenger-username" name="challengerUsername"></li>
 					<li><input type="hidden" value="@profileUser.getUsername()" id="challenged-username" name="challengedUsername"></li>
 					<li><input type="hidden" id="odds" name="odds"></li>
-					<li><input type="hidden" value="0" name="time"></li>
 					<li><input type="text" placeholder="Wager" name="wager" required autofocus></li>
 					<li><input type="text" placeholder="Subject" name="subject"></li>
 					<li><input type="location" placeholder="Location" name="location"></li>
 					<li>
 						<div class='input-append date' id="datetimepicker">
-							<input type='text' value="" size="25" readonly/>
+							<input type='text' placeholder="Time" size="25" name="time"/>
 							<span class="add-on"><i class="icon-th"></i></span>
 						</div>
 					</li>
