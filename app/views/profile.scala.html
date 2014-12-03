@@ -168,12 +168,12 @@
 									@for(b <- bets) {
 										<div class="col-md-6" id="bet-challenger">
 											<div class="bet-challenger-icon"></div>
-											<a class="challenger-name" id="bet-challenger-name" href="#">@b.getChallenge().getChallengerUsername()</a>
+											<a class="challenger-name" id="bet-challenger-name" href="/@b.getChallenge().getChallengerUsername()">@b.getChallenge().getChallengerUsername()</a>
 											<!-- <p class="challenger-level">LVL: #</p> -->
 										</div>
 										<div class="col-md-6" id="bet-challenger">
 											<div class="bet-challenger-icon"></div>
-											<a class="challenger-name" id="bet-challenger-name" href="#">@b.getChallenge().getChallengedUsername()</a>
+											<a class="challenger-name" id="bet-challenger-name" href="/@b.getChallenge().getChallengedUsername()">@b.getChallenge().getChallengedUsername()</a>
 											<!-- <p class="challenger-level">LVL: #</p> -->
 										</div>
 										<ul class="list-unstyled" id="bet-info">
