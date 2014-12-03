@@ -25,7 +25,7 @@ public class BetController extends Controller {
 	static final String DB_URL = "jdbc:mysql://engr-cpanel-mysql.engr.illinois.edu/esmael2_callouts";
 
 	//  Database credentials
-	static final String USER = "db.default.user=esmael2_callouts";
+	static final String USER = "esmael2_callouts";
 	static final String PASS = "C@lloutspw";
 
 	/**
