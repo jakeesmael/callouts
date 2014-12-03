@@ -4,6 +4,7 @@ import com.avaje.ebean.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
+import models.Bet;
 import models.User;
 import models.Challenge;
 import models.Bet;
@@ -18,6 +19,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Calendar;
 
+import static controllers.BetController.getPlacedBetsChallenges;
 import static controllers.UserController.*;
 
 
@@ -25,6 +27,7 @@ import static controllers.UserController.*;
  * Created by jakeesmael on 10/19/14.
  */
 public class Callouts extends Controller {
+    public static final int MIN_WAGER = 1;
 
 	public static class UserForm {
 		public String username;
@@ -64,6 +67,14 @@ public class Callouts extends Controller {
 		public String challenger;
 		public String challenged;
 		public Timestamp time;
+
+        public BetForm(String winner, int wager, String challenger, String challenged, Timestamp time) {
+            this.winner = winner;
+            this.wager = wager;
+            this.challenger = challenger;
+            this.challenged = challenged;
+            this.time = time;
+        }
 	}
 
 	/**
@@ -209,23 +220,36 @@ public class Callouts extends Controller {
 
 	@Security.Authenticated(Secured.class)
 	public static Result challengePost() {
+        Http.Cookie sessionCookie = request().cookies().get("session_id");
+        String username = Crypto.decryptAES(sessionCookie.value());
+        User user = UserController.getUserByUsername(username);
+
 		DynamicForm requestData = Form.form().bindFromRequest();
 		// get all of the form field inputs from the request
 		String challengerUsername = requestData.get("challengerUsername");
 		String challengedUsername = requestData.get("challengedUsername");
 		int odds = 1;
-		int wager = Integer.parseInt(requestData.get("wager"));
+        int wager = 0;
+        try {
+            wager = Integer.parseInt(requestData.get("wager"));
+        } catch (NumberFormatException e) {
+            System.out.println("invalid wager input");
+            return redirect("/" + challengedUsername);
+        }
+
 		String location = requestData.get("location");
 		String subject = requestData.get("subject");
-		// hard code the time and odds for now...
-		Calendar calendar = Calendar.getInstance();
-		Timestamp time = new Timestamp(calendar.getTime().getTime());
+        String timeString = requestData.get("time");
+        System.out.println("timeString: " + timeString);
+		Timestamp time = Timestamp.valueOf(timeString);
 
 		ChallengeForm challengeForm = new ChallengeForm(challengerUsername, challengedUsername, wager, odds, location, time, subject);
 
 		if (!ChallengeController.isValidChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time)
-						|| ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null) {
-			return redirect("/");
+			|| ChallengeController.getChallenge(challengeForm.challengerUsername, challengeForm.challengedUsername, challengeForm.time) != null
+            || wager > user.getPoints() || wager < MIN_WAGER) {
+            System.out.println("invalid challenge");
+            return redirect("/" + challengedUsername);
 		} else {
 			ChallengeController.addChallenge(challengeForm);
 			sendEmail(challengeForm);
@@ -248,7 +272,38 @@ public class Callouts extends Controller {
 		return redirect("/challenge/" + Crypto.encryptAES(challengeId));
 	}
 
-	@Security.Authenticated(Secured.class)
+    @Security.Authenticated(Secured.class)
+    public static Result betPost(String challengeId) {
+        Http.Cookie sessionCookie = request().cookies().get("session_id");
+        String username = Crypto.decryptAES(sessionCookie.value());
+        User user = UserController.getUserByUsername(username);
+
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String winner = requestData.get("winner");
+        String challenger = requestData.get("challenger");
+        String challenged = requestData.get("challenged");
+        Timestamp time = Timestamp.valueOf(requestData.get("time"));
+        int bet = Integer.parseInt(requestData.get("bet"));
+
+        BetForm betForm = new BetForm(winner, bet, challenger, challenged, time);
+
+        if (bet > user.getPoints() || bet < MIN_WAGER) {
+            System.out.println("invalid bet");
+            return redirect("/challenge/" + Crypto.encryptAES(challengeId));
+        } else {
+            BetController.addBet(betForm);
+            return redirect("/challenge/" + Crypto.encryptAES(challengeId));
+        }
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result betDelete(String betIdString, String challengeId) {
+        int betId = Integer.parseInt(betIdString);
+        BetController.deleteBet(betId);
+        return redirect("/challenge/" + Crypto.encryptAES(challengeId));
+    }
+
+    @Security.Authenticated(Secured.class)
 	public static Result profile(String profileUsername) {
 		Http.Cookie sessionCookie = request().cookies().get("session_id");
 		String username = Crypto.decryptAES(sessionCookie.value());
@@ -258,6 +313,8 @@ public class Callouts extends Controller {
 		List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);
 		List<Bet> bets = BetController.getPlacedBets(profileUsername);
 		System.out.println(bets.size());
+
+		List<Bet> bets = getPlacedBetsChallenges(username);
 
 		if (profileUser == null) {
 			return ok(views.html.error.render(user));

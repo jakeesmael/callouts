@@ -1,9 +1,10 @@
 /**
- * Created by ken on 10/21/14.
+ * Created by ken on 12/2/14.
  */
+
 $(document).ready(function() {
 
-    $('#challenge-button').click(function() {
+    $('#bet-button').click(function() {
         $('.overlay').fadeToggle("fast");
         $('.modal').fadeToggle("fast");
     });
@@ -12,11 +13,4 @@ $(document).ready(function() {
         $('.overlay').fadeToggle("fast");
         $('.modal').fadeToggle("fast");
     })
-
-    var nowDate = new Date();
-    $('#datetimepicker').datetimepicker({
-        format: "yyyy-mm-dd hh:ii:ss",
-        autoclose: true,
-        startDate: nowDate
-    });
 });

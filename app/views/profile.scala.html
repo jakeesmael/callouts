@@ -20,8 +20,8 @@
 	<title>Profile</title>
 </head>
 <body>
-	<div id="challenge-overlay">
-		<div id="challenge-modal">
+	<div class="overlay">
+		<div class="modal">
 			@helper.form(action = routes.Callouts.challengePost()) {
 				<div class="col-sm-9">
 				<h1> Issue a challenge! </h1>
@@ -34,19 +34,18 @@
 					<li><input type="location" placeholder="Location" name="location"></li>
 					<li>
 						<div class='input-append date' id="datetimepicker">
-							<input type='text' value="" size="25" readonly/>
+							<input type='text' placeholder="Time" size="25" name="time"/>
 							<span class="add-on"><i class="icon-th"></i></span>
 						</div>
 					</li>
-					<li><input type="hidden" value="0" name="time"></li>
 				</ul>
 				<input type="submit" class="btn btn-success" value="Submit">
 				</div>
 			}
-				<div class="col-sm-3" id="cancel-button-div">
-					<button class="btn btn-danger" id="cancel-button">Cancel</button>
-				</div>
-					</div>
+			<div class="col-sm-3" id="cancel-button-div">
+				<button class="btn btn-danger" id="cancel-button">Cancel</button>
+			</div>
+		</div>
 	</div>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>

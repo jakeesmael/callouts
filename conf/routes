@@ -3,25 +3,28 @@
 # ~~~~
 
 # Home page
-GET         /                           controllers.Callouts.newsfeed()
+GET         /                                       controllers.Callouts.newsfeed()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file               controllers.Assets.at(path="/public", file)
+GET         /assets/*file                           controllers.Assets.at(path="/public", file)
 
-GET         /login                      controllers.Callouts.login()
-GET         /logout                     controllers.Callouts.logout()
-POST        /authenticate               controllers.Callouts.authenticate()
-GET         /signup                     controllers.Callouts.signUpGet()
-POST        /signup                     controllers.Callouts.signUpPost()
-GET         /settings                   controllers.Callouts.settings()
-POST        /editSettings               controllers.Callouts.editSettings()
+GET         /login                                  controllers.Callouts.login()
+GET         /logout                                 controllers.Callouts.logout()
+POST        /authenticate                           controllers.Callouts.authenticate()
+GET         /signup                                 controllers.Callouts.signUpGet()
+POST        /signup                                 controllers.Callouts.signUpPost()
+GET         /settings                               controllers.Callouts.settings()
+POST        /editSettings                           controllers.Callouts.editSettings()
 
 #profile page
-GET         /:username                  controllers.Callouts.profile(username)
-POST        /challenge                  controllers.Callouts.challengePost()
+GET         /:username                              controllers.Callouts.profile(username)
+POST        /challenge                              controllers.Callouts.challengePost()
 
-POST        /challengeDelete            controllers.Callouts.challengeDelete(challenger, challenged, time)
-POST        /challengeUpdateTime        controllers.Callouts.challengeUpdateTime(challenger, challenged, time, challengeId)
+POST        /challengeDelete                        controllers.Callouts.challengeDelete(challenger, challenged, time)
+POST        /challengeUpdateTime                    controllers.Callouts.challengeUpdateTime(challenger, challenged, time, challengeId)
 
 #challenge page
-GET					/challenge/:encryptedChallengeId			controllers.Callouts.challengeGet(encryptedChallengeId)
+GET         /challenge/:encryptedChallengeId        controllers.Callouts.challengeGet(encryptedChallengeId)
+
+POST        /bet                                    controllers.Callouts.betPost(challengeId)
+POST				/betDelete															controllers.Callouts.betDelete(betIdString, challengeId)
