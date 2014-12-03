@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
 import models.Bet;
-import models.BetChallenge;
 import models.User;
 import models.Challenge;
 import play.Play;

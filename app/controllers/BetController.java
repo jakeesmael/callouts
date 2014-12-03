@@ -11,12 +11,22 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static controllers.Callouts.getCurrentUsername;
 import static controllers.ChallengeController.getChallenge;
 
 public class BetController extends Controller {
+
+	// JDBC driver name and database URL
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/callouts";
+
+	//  Database credentials
+	static final String USER = "calloutsuser";
+	static final String PASS = "copw";
 
 	/**
 	 * Adds a bet
@@ -78,32 +88,43 @@ public class BetController extends Controller {
 	 * @return betList - the list of bets made by a user
 	 */
 	public static List<Bet> getPlacedBetsChallenges(String username) {
-		String sql = "select b.bet_id, b.winner, b.wager, b.challenge_id, b.bettor, c.challenge_id, c.challenger_username, c.challenged_username, c.wager, c.odds, c.location, c.time, c.subject, c.winner from bets b, challenges c where c.challenge_id = 1 and bettor = \"" + username + "\";";
-		RawSql rawSql = RawSqlBuilder.parse(sql)
-			.columnMapping("b.bet_id", "betId")
-			.columnMapping("b.winner", "winner")
-			.columnMapping("b.wager", "wager")
-			.columnMapping("b.challenge_id", "challengeId")
-			.columnMapping("b.bettor", "bettor")
-			.columnMapping("c.subject", "subject")
-			.columnMapping("c.challenge_id", "challenge.challengeId")
-			.columnMapping("c.challenger_username", "challenge.challengerUsername")
-			.columnMapping("c.challenged_username", "challenge.challengedUsername")
-			.columnMapping("c.wager", "challenge.wager")
-			.columnMapping("c.odds", "challenge.odds")
-			.columnMapping("c.location", "challenge.location")
-			.columnMapping("c.time", "challenge.time")
-			.columnMapping("c.subject", "challenge.subject")
-			.columnMapping("c.winner", "challenge.winner")
-			.create();
-		Query<Bet> query = Ebean.find(Bet.class).setRawSql(rawSql);
-		List<Bet> betList = query.findList();
-		System.out.println(betList.size());
-		Challenge cunt = betList.get(0).getChallenge();
-		Bet b = betList.get(0);
-		System.out.println("bet fields: " + b.getBetId() + " " + b.getWager() + " " + b.getChallengeId());
-		System.out.println(b.getSubject());
 
-		return betList;
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(
+				DB_URL,
+				USER,
+				PASS);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = con.prepareStatement("select b.bet_id, b.winner, b.wager, b.challenge_id, b.bettor, c.challenge_id, c.challenger_username, c.challenged_username, c.wager, c.odds, c.location, c.time, c.subject, c.winner from bets b, challenges c where b.challenge_id = c.challenge_id and bettor = ? ;");
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+			/* For each row */
+			while (resultSet.next()) {
+				int betId = resultSet.getInt("b.bet_id");
+				String winner = resultSet.getString("b.winner");
+				int wager = resultSet.getInt("b.wager");
+				int challengeId = resultSet.getInt("b.challenge_id");
+				String bettor = resultSet.getString("b.bettor");
+				String challengerUsername = resultSet.getString("c.challenger_username");
+				String challengedUsername = resultSet.getString("c.challenged_username");
+				int odds = resultSet.getInt("c.odds");
+				Timestamp time = resultSet.getTimestamp("c.time");
+				String subject = resultSet.getString("c.subject");
+				Bet bet = new Bet(betId, winner, wager, challengeId, bettor, challengerUsername, challengedUsername,
+					odds, time, subject);
+				/* add each bet to the list here */
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+//		return betList;
 	}
 }

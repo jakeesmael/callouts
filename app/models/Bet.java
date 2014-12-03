@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by jakeesmael on 10/20/14.
@@ -15,8 +16,18 @@ public class Bet {
 	private int challengeId;
 	private String bettor;
 	private String subject;
-	@ManyToOne
 	private Challenge challenge;
+
+	public Bet(int betId, String winner, int wager, int challengeId, String bettor,
+						String challengerUsername, String challengedUsername, int odds, Timestamp time, String subject) {
+		this.betId = betId;
+		this.winner = winner;
+		this.wager = wager;
+		this.challengeId = challengeId;
+		this.bettor = bettor;
+		this.subject = subject;
+		this.challenge = new Challenge(challengeId, challengerUsername, challengedUsername, odds, time, subject);
+	}
 
 	public int getBetId() {
 		return betId;
