@@ -2,9 +2,9 @@ package controllers;
 /**
  * Created by KenYHT on 10/20/2014
  */
-
 import com.avaje.ebean.*;
 import models.Bet;
+import models.BetData;
 import models.Challenge;
 import models.User;
 import play.data.DynamicForm;
@@ -52,17 +52,53 @@ public class BetController extends Controller {
 	 * @return betList - the list of bets made by a user
 	 */
 	public static List<Bet> getPlacedBets(String username) {
-		String sql = "select * from bets where bettor = \"" + username + "\";";
+		String sql = "select b.bet_id, b.winner, b.wager, b.challenge_id, b.bettor, c.challenge_id, c.challenger_username, c.challenged_username, c.wager, c.odds, c.location, c.time, c.subject, c.winner from bets b join challenges c on (b.challenge_id=c.challenge_id) where b.bettor=\"" + username + "\";";
+		System.out.println(sql);
 		RawSql rawSql = RawSqlBuilder.unparsed(sql)
-			.columnMapping("bet_id", "betId")
-			.columnMapping("winner", "winner")
-			.columnMapping("wager", "wager")
-			.columnMapping("challenge_id", "challengeId")
-			.columnMapping("bettor", "bettor")
+			.columnMapping("b.bet_id", "betId")
+			.columnMapping("b.winner", "winner")
+			.columnMapping("b.wager", "wager")
+			.columnMapping("b.challenge_id", "challengeId")
+			.columnMapping("b.bettor", "bettor")
+			/*.columnMapping("c.challenge_id", "challenge.challengeId")
+			.columnMapping("c.challenger_username", "challenge.challengerUsername")
+			.columnMapping("c.challenged_username", "challenge.challengedUsername")
+			.columnMapping("c.wager", "challenge.wager")
+			.columnMapping("c.odds", "challenge.odds")
+			.columnMapping("c.location", "challenge.location")
+			.columnMapping("c.time", "challenge.time")
+			.columnMapping("c.subject", "challenge.subject")
+			.columnMapping("c.winner", "challenge.winner")*/
 			.create();
+
 		Query<Bet> query = Ebean.find(Bet.class).setRawSql(rawSql);
 		List<Bet> betList = query.findList();
 
 		return betList;
 	}
+
+	/**
+	 * Gets information for bets
+	 * @param username
+	 * @return betList - the list of bet data on bets made by a user
+	 */
+	/*public static List<Bet> getBetsInformation(String username) {
+		String sql = "select * from challenges inner join bets on bets.challenge_id=challenges.challenge_id where bets.bettor=\"" + username + "\";";
+		 System.out.println(sql);
+		RawSql rawSql = RawSqlBuilder.parsed(sql)
+            .columnMapping("challenger_username", "challengerUsername")
+            .columnMapping("challenged_username", "challengedUsername")
+            .columnMapping("subject", "subject")
+            .columnMapping("winner", "winner")
+			.columnMapping("time", "time")
+			.columnMapping("winner", "winner")
+			.columnMapping("predicted_winner", "predictedWinner")
+			.columnMapping("wager", "wager")
+			.columnMapping("challenges.time", "challenge.time")
+            .create();
+		Query<Bet> query = Ebean.find(Bet.class).setRawSql(rawSql);
+		List<Bet> betList = query.findList();
+
+		return betList;
+	}*/
 }

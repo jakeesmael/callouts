@@ -1,4 +1,4 @@
-@(user: User, profileUser: User, sentChallenges: List[Challenge], receivedChallenges: List[Challenge])
+@(user: User, profileUser: User, sentChallenges: List[Challenge], receivedChallenges: List[Challenge], bets: List[Bet])
 @import java.sql.Timestamp;
 @import play.libs.Crypto;
 
@@ -163,6 +163,9 @@
 					<div class="content">
 						<ul id="newsfeed">
 							<li class="newsfeed-item">
+								@if(bets.isEmpty) {
+								<h2>No bets bla bla bla bla</h2>
+							}
 								<div class="col-md-6" id="bet-challenger">
 									<a class="challenger-name" id="bet-challenger-name" href="#">Challenger</a>
 									<p class="challenger-level">LVL: #</p>

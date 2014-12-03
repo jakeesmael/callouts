@@ -6,6 +6,8 @@ import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
 import models.User;
 import models.Challenge;
+import models.Bet;
+import models.BetData;
 import play.Play;
 import play.data.Form;
 import play.data.DynamicForm;
@@ -254,11 +256,13 @@ public class Callouts extends Controller {
 		User profileUser = UserController.getUserByUsername(profileUsername);
 		List<Challenge> sentChallenges= ChallengeController.getSentChallengesByUsername(profileUsername);
 		List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);
+		List<Bet> bets = BetController.getPlacedBets(profileUsername);
+		System.out.println(bets.size());
 
 		if (profileUser == null) {
 			return ok(views.html.error.render(user));
 		} else {
-			return ok(views.html.profile.render(user, profileUser, sentChallenges, receivedChallenges));
+			return ok(views.html.profile.render(user, profileUser, sentChallenges, receivedChallenges, bets));
 		}
 	}
 
