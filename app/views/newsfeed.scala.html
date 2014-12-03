@@ -31,13 +31,13 @@
                                 <div class="challenger">
                                     <p class="challenger-wager">@s.getWager()</p>
                                     <div class="challenger-icon"></div>
-                                    <p class="challenger-name">@s.getChallengerUsername()</p>
-                                    <p class="challenger-level">LVL:</p>
+                                    <a class="challenger-name" href="/@s.getChallengerUsername()">@s.getChallengerUsername()</a>
+                                    <p class="challenger-level">LVL: @s.getChallenger().getLevel()</p>
                                 </div>
                                 <div class="challenge-content">
-                                    <a class="challenge-description" href="/challenge/@Crypto.encryptAES(Integer.toString(s.getChallengeId()))">
+                                    <h3 class="challenge-description" >
                                         @s.getSubject() by @s.getTime() .
-                                    </a>
+                                    </h3>
                                     <div class="challenge-stats">
                                         <div class="challenge-left-odds">
                                             <h4 class="challenge-left-percent">@s.getOdds() %</h4>
@@ -46,12 +46,13 @@
                                             <h4 class="challenge-right-percent">@s.getOdds() %</h4>
                                         </div>
                                     </div>
+																		<a href="/challenge/@Crypto.encryptAES(Integer.toString(s.getChallengeId()))">See More</a>
                                 </div>
                                 <div class="challenger">
                                     <p class="challenger-wager">@s.getWager()</p>
                                     <div class="challenger-icon"></div>
-                                    <p class="challenger-name">@s.getChallengedUsername()</p>
-                                    <p class="challenger-level">LVL:</p>
+                                    <a class="challenger-name" href="/@s.getChallengedUsername()">@s.getChallengedUsername()</a>
+                                    <p class="challenger-level">LVL: @s.getChallenged().getLevel()</p>
                                 </div>
                             </li>
                             <hr class="newsfeed-separator">
