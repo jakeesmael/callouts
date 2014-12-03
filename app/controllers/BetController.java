@@ -65,4 +65,39 @@ public class BetController extends Controller {
 
 		return betList;
 	}
+
+	/**
+	 * Gets all bets that a user has placed
+	 * @param username
+	 * @return betList - the list of bets made by a user
+	 */
+	public static List<Bet> getPlacedBetsChallenges(String username) {
+		String sql = "select b.bet_id, b.winner, b.wager, b.challenge_id, b.bettor, c.challenge_id, c.challenger_username, c.challenged_username, c.wager, c.odds, c.location, c.time, c.subject, c.winner from bets b, challenges c where c.challenge_id = 1 and bettor = \"" + username + "\";";
+		RawSql rawSql = RawSqlBuilder.parse(sql)
+			.columnMapping("b.bet_id", "betId")
+			.columnMapping("b.winner", "winner")
+			.columnMapping("b.wager", "wager")
+			.columnMapping("b.challenge_id", "challengeId")
+			.columnMapping("b.bettor", "bettor")
+			.columnMapping("c.subject", "subject")
+			.columnMapping("c.challenge_id", "challenge.challengeId")
+			.columnMapping("c.challenger_username", "challenge.challengerUsername")
+			.columnMapping("c.challenged_username", "challenge.challengedUsername")
+			.columnMapping("c.wager", "challenge.wager")
+			.columnMapping("c.odds", "challenge.odds")
+			.columnMapping("c.location", "challenge.location")
+			.columnMapping("c.time", "challenge.time")
+			.columnMapping("c.subject", "challenge.subject")
+			.columnMapping("c.winner", "challenge.winner")
+			.create();
+		Query<Bet> query = Ebean.find(Bet.class).setRawSql(rawSql);
+		List<Bet> betList = query.findList();
+		System.out.println(betList.size());
+		Challenge cunt = betList.get(0).getChallenge();
+		Bet b = betList.get(0);
+		System.out.println("bet fields: " + b.getBetId() + " " + b.getWager() + " " + b.getChallengeId());
+		System.out.println(b.getSubject());
+
+		return betList;
+	}
 }

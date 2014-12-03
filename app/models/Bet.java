@@ -1,7 +1,8 @@
 package models;
 
 import play.db.ebean.Model;
-import javax.persistence.Entity;
+
+import javax.persistence.*;
 
 /**
  * Created by jakeesmael on 10/20/14.
@@ -13,6 +14,9 @@ public class Bet {
 	private int wager;
 	private int challengeId;
 	private String bettor;
+	private String subject;
+	@ManyToOne
+	private Challenge challenge;
 
 	public int getBetId() {
 		return betId;
@@ -52,6 +56,22 @@ public class Bet {
 
 	public void setBettor(String bettor) {
 		this.bettor = bettor;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public Challenge getChallenge() {
+		return challenge;
+	}
+
+	public void setChallenge(Challenge challenge) {
+		this.challenge = challenge;
 	}
 
 	public static Model.Finder<Long,Bet> find = new Model.Finder<Long,Bet>(

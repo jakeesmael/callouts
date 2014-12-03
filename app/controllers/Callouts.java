@@ -4,6 +4,8 @@ import com.avaje.ebean.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
+import models.Bet;
+import models.BetChallenge;
 import models.User;
 import models.Challenge;
 import play.Play;
@@ -16,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Calendar;
 
+import static controllers.BetController.getPlacedBetsChallenges;
 import static controllers.UserController.*;
 
 
@@ -254,6 +257,8 @@ public class Callouts extends Controller {
 		User profileUser = UserController.getUserByUsername(profileUsername);
 		List<Challenge> sentChallenges= ChallengeController.getSentChallengesByUsername(profileUsername);
 		List<Challenge> receivedChallenges = ChallengeController.getReceivedChallengesByUsername(profileUsername);
+
+		List<Bet> bets = getPlacedBetsChallenges(username);
 
 		if (profileUser == null) {
 			return ok(views.html.error.render(user));
