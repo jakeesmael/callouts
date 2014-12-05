@@ -17,8 +17,10 @@
 	<body>
 		<div id="fb-root"></div>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
-			<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+			<div class="pos-right">
+				<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+				<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
+			</div>
 			<a class="nav-home nav-link" href="/">Callouts</a>
 			<a href="/logout">Logout</a>
 		</div>
