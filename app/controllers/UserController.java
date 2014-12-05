@@ -36,6 +36,8 @@ public class UserController extends Controller {
 			.columnMapping("losses", "losses")
 			.columnMapping("level", "level")
 			.columnMapping("email", "email")
+			.columnMapping("facebook_id", "facebookId")
+			.columnMapping("picture_url", "pictureUrl")
 			.create();
 		Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
 		List<User> userList = query.findList();
