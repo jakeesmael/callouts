@@ -2,6 +2,24 @@ $(document).ready(function() {
 	addListeners();
 });
 
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        if (response.status === 'connected') {
+            saveSettings("facebookId", response.authResponse.userID);
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not the app.
+            $("#fb-status").text("Your account is not linked.")
+        } else {
+            // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
+            $("#fb-status").text("You're not logged into Facebook.")
+        }
+    });
+}
+
 function addListeners() {
 	/* Edit */
 	$(".btn-link").click(function() {
@@ -42,6 +60,25 @@ function addListeners() {
 		$(this).prev().hide();
 		$(this).prev().prev().show();
 	});
+    console.log("document loaded");
+    /* Facebook Link */
+    $(".fb-login").click(function() {
+        FB.getLoginStatus(function(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            if (response.status === 'connected') {
+                saveSettings("facebookId", response.authResponse.userID);
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not the app.
+                $("#fb-status").text("Your account is not linked.")
+            } else {
+                // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
+                $("#fb-status").text("You're not logged into Facebook.")
+            }
+        });
+    });
 }
 
 function saveSettings(type, input) {
@@ -56,3 +93,4 @@ function saveSettings(type, input) {
 		contentType: "application/json"
 	});
 }
+
