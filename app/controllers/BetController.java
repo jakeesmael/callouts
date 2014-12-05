@@ -139,6 +139,11 @@ public class BetController extends Controller {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return betList;
 	}
