@@ -4,12 +4,8 @@ package controllers;
  */
 import com.avaje.ebean.*;
 import models.Bet;
-import models.BetData;
 import models.Challenge;
-import models.User;
 import play.Play;
-import play.data.DynamicForm;
-import play.data.Form;
 import play.mvc.*;
 
 import java.sql.*;
@@ -23,12 +19,12 @@ public class BetController extends Controller {
 
 	// JDBC driver name and database URL
 //	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-//	/*static final String DB_URL = "jdbc:mysql://engr-cpanel-mysql.engr.illinois.edu/esmael2_callouts";*/
+	static final String DB_URL = "jdbc:mysql://engr-cpanel-mysql.engr.illinois.edu/esmael2_callouts";
 //	static final String DB_URL="jdbc:mysql://localhost:3306/callouts";
 
 	//  Database credentials
-	// static final String USER = "esmael2_callouts";
-	// static final String PASS = "C@lloutspw";
+	static final String USER = "esmael2_callouts";
+	static final String PASS = "C@lloutspw";
 //	static final String USER="calloutsuser";
 //	static final String PASS="copw";
 
