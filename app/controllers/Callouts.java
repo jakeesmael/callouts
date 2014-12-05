@@ -336,7 +336,7 @@ public class Callouts extends Controller {
 		Iterator<JsonNode> iterator = json.findPath("friendIds").elements();
 		List<BigInteger> friendIds = new ArrayList<BigInteger>();
 		while (iterator.hasNext()) {
-			Long num = new Long(iterator.next().asLong());
+			Long num = new Long(iterator.next().textValue());
 			String stringVar = num.toString();
 			BigInteger id = new BigInteger( stringVar );
 			friendIds.add(id);
@@ -400,6 +400,7 @@ public class Callouts extends Controller {
 		String winner = json.findPath("winner").textValue();
 		declareWinner(challengeId, winner);
 		distributePoints(challengeId, winner);
+		updateWins(challengeId, winner);
 		return ok();
 	}
 }

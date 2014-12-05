@@ -5,19 +5,17 @@ package controllers;
  */
 
 import com.avaje.ebean.*;
+import models.Challenge;
 import models.User;
-import play.data.DynamicForm;
-import play.data.Form;
 import play.libs.Crypto;
 import play.mvc.*;
 
-import java.util.Map;
-import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import java.math.BigInteger;
 
 import static controllers.Callouts.getCurrentUsername;
+import static controllers.ChallengeController.getChallengeById;
 
 public class UserController extends Controller {
 
@@ -188,7 +186,7 @@ public class UserController extends Controller {
 		List<User> friends = new ArrayList<User>();
 		for (BigInteger facebookId : friendIds) {
 			String idString = facebookId.toString();
-			String sql = "select * from users where facebook_id = \"" + idString + "\";";
+			String sql = "select username, password, name, points, wins, losses, level, email, facebook_id, picture_url from users where facebook_id = \"" + idString + "\";";
 			RawSql rawSql = RawSqlBuilder.parse(sql)
 				.columnMapping("username", "username")
 				.columnMapping("password", "password")
@@ -212,5 +210,18 @@ public class UserController extends Controller {
 			}
 		}
 		return friends;
+	}
+
+	public static void updateWins(int challengeId, String winner) {
+		Challenge challenge = getChallengeById(challengeId);
+		String sql = "update users set wins=wins+1 where username = \"" + winner + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
+
+		String loser = (winner.equals(challenge.getChallengerUsername())) ?
+			challenge.getChallengedUsername() : challenge.getChallengerUsername();
+		sql = "update users set losses=losses+1 where username = \"" + loser + "\";";
+		update = Ebean.createSqlUpdate(sql);
+		update.execute();
 	}
 }

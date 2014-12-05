@@ -20,14 +20,14 @@ POST        /editSettings                           controllers.Callouts.editSet
 GET         /:username                              controllers.Callouts.profile(username)
 POST        /challenge                              controllers.Callouts.challengePost()
 
-POST 		/getFriends								controllers.Callouts.getFriends()
+POST        /getFriends                             controllers.Callouts.getFriends()
 
 POST        /challengeDelete                        controllers.Callouts.challengeDelete(challenger, challenged, time)
 POST        /challengeUpdateTime                    controllers.Callouts.challengeUpdateTime(challenger, challenged, time, challengeId)
 
 #challenge page
 GET         /challenge/:encryptedChallengeId        controllers.Callouts.challengeGet(encryptedChallengeId)
-POST        /challenge/declare											controllers.Callouts.challengeDeclareWinner()
+POST        /challenge/declare                      controllers.Callouts.challengeDeclareWinner()
 
 POST        /bet                                    controllers.Callouts.betPost(challengeId)
 POST        /betDelete                              controllers.Callouts.betDelete(betIdString, challengeId)

@@ -60,3 +60,7 @@ html, body {
 .sidebar {
 	margin-top: 20px;
 }
+
+.content {
+	padding: 10px;
+}
