@@ -122,4 +122,11 @@ public class UserController extends Controller {
 		SqlUpdate update = Ebean.createSqlUpdate(sql);
 		update.execute();
 	}
+
+	public static void updatePoints(String username, int points) {
+		String sql = "update users set points = points+" + points +
+			" where username=\"" + username + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
+	}
 }

@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import static controllers.Callouts.getCurrentUsername;
+import static controllers.UserController.updatePoints;
 
 public class ChallengeController extends Controller {
 
@@ -267,4 +268,26 @@ public class ChallengeController extends Controller {
 		SqlUpdate update = Ebean.createSqlUpdate(sql);
 		update.execute();
 	}
+
+	public static void declareWinner(int challengeId, String winner) {
+		String sql = "update challenges set winner = \"" + winner + "\"" +
+			" where challenge_id = \"" + challengeId + "\";";
+		SqlUpdate update = Ebean.createSqlUpdate(sql);
+		update.execute();
+	}
+
+	public static void distributePoints(int challengeId, String winner) {
+		Challenge challenge = getChallengeById(challengeId);
+		int points = challenge.getWager();
+		if (winner.equals(challenge.getChallengedUsername())) {
+			points *= challenge.getOdds();
+			updatePoints(challenge.getChallengerUsername(), -1*points);
+			updatePoints(challenge.getChallengedUsername(), points);
+		}
+		else {
+			updatePoints(challenge.getChallengerUsername(), points);
+			updatePoints(challenge.getChallengedUsername(), -1*points);
+		}
+	}
+
 }
