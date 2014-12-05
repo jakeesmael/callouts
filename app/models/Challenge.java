@@ -122,7 +122,7 @@ public class Challenge extends Model {
 	);
 
 	public String getTimeRemaining() {
-		long timeRemaining =  (long)((time.getTime() - System.currentTimeMillis())/1000);
+		int timeRemaining =  (int)(time.getTime() - System.currentTimeMillis())/1000;
 		int hours = timeRemaining / 3600;
 		int minutes = (timeRemaining % 3600) / 60;
 		int seconds = timeRemaining % 60;

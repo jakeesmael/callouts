@@ -20,13 +20,13 @@ public class BetController extends Controller {
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String dbUrl = "jdbc:mysql://engr-cpanel-mysql.engr.illinois.edu/esmael2_callouts";
-	// static final String DB_URL="jdbc:mysql://localhost:3306/callouts";
+//	static final String dbUrl="jdbc:mysql://localhost:3306/callouts";
 
 	// Database credentials
 	static final String user = "esmael2_callouts";
 	static final String pass = "C@lloutspw";
-	/*static final String USER="calloutsuser";
-	static final String PASS="copw";*/
+//	static final String user="calloutsuser";
+//	static final String pass="copw";
 
 
 	/**
