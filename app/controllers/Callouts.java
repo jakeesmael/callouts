@@ -407,6 +407,7 @@ public class Callouts extends Controller {
 		String winner = json.findPath("winner").textValue();
 		declareWinner(challengeId, winner);
 		distributePoints(challengeId, winner);
+		updateWins(challengeId, winner);
 		return ok();
 	}
 }
