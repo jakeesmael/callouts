@@ -51,3 +51,8 @@ html, body {
     margin: auto auto;
     z-index: 11;
 }
+
+.image {
+	width: 100px;
+	height: 100px;
+}

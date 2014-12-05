@@ -381,12 +381,12 @@ public class Callouts extends Controller {
 			case "password":
 				updatePassword(json.findPath("input").textValue());
 				break;
-            case "facebookId":
-                updateFacebookId(new BigInteger(json.findPath("input").textValue()));
-                break;
-            case "pictureUrl":
-                updatePictureUrl(json.findPath("input").textValue());
-                break;
+      case "facebookId":
+				updateFacebookId(new BigInteger(json.findPath("input").textValue()));
+				break;
+			case "pictureUrl":
+				updatePictureUrl(json.findPath("input").textValue());
+				break;
 		}
 
 		return ok();
