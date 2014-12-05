@@ -50,7 +50,6 @@
 	</div>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="pos-right">
-			<input id="fb-id" type="hidden" value="@user.getFacebookId()">
 			<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
 			<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
 		</div>
@@ -67,6 +66,7 @@
 					<ul class = "list-unstyled">
 						<li>@profileUser.getUsername()</li>
 					</ul>
+					<button class="btn btn-md btn-info" id="friends-button">Friends</button>
 				</div>
 				@*<div class="sidebar-module" id="statistics">*@
 					@*<ul class = "list-unstyled">*@
@@ -101,9 +101,10 @@
 											<p class="challenger-level">LVL: @s.getChallenger().getLevel()</p>
 										</div>
 										<div class="challenge-content">
-											<h3 class="challenge-description">
-												@s.getSubject() by @s.getTime() at @s.getLocation()
-											</h3>
+											<div class="challenge-description" >
+		                                        <h3>@s.getSubject() by @s.getTime().</h3>
+		                                        <p style="text-align: center">Time remaining: @s.getTimeRemaining()</p>
+		                                    </div>
 											<div class="challenge-stats">
 												<div class="challenge-left-odds">
 													<h4 class="challenge-left-percent">@s.getOdds() %</h4>
@@ -136,9 +137,10 @@
 											<p class="challenger-level">LVL: @r.getChallenger().getLevel()</p>
 										</div>
 										<div class="challenge-content">
-											<h3 class="challenge-description" >
-												@r.getSubject() by @r.getTime() at @r.getLocation()
-											</h3>
+											<div class="challenge-description" >
+		                                        <h3>@r.getSubject() by @r.getTime().</h3>
+		                                        <p style="text-align: center">Time remaining: @r.getTimeRemaining()</p>
+		                                    </div>
 											<div class="challenge-stats">
 												<div class="challenge-left-odds">
 													<h4 class="challenge-left-percent">@r.getOdds() %</h4>

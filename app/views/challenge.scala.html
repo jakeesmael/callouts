@@ -57,9 +57,10 @@
 							<p class="challenger-level">LVL: @challenge.getChallenger().getLevel()</p>
 						</div>
 						<div class="challenge-content">
-							<h3 class="challenge-description">
-								@challenge.getSubject() by @challenge.getTime() at @challenge.getLocation()
-							</h3>
+							<div class="challenge-description" >
+                                <h3>@challenge.getSubject() by @challenge.getTime().</h3>
+                                <p style="text-align: center">Time remaining: @challenge.getTimeRemaining()</p>
+                            </div>
 							<div class="challenge-stats">
 								<div class="challenge-left-odds">
 									<h4 class="challenge-left-percent">50%</h4>

@@ -36,9 +36,13 @@ $(document).ready(function() {
         autoclose: true,
         startDate: nowDate
     });
+
+    $('#friends-button').click(function() {
+        getUsersByFacebookIds(getFbFriends());
+    })
 });
 
-function getFbFriends(userId) {
+function getFbFriends() {
     FB.getLoginStatus(function(response) {
         // The response object is returned with a status field that lets the
         // app know the current login status of the person.
@@ -64,4 +68,27 @@ function getFbFriends(userId) {
             return [];
         }
     });
+};
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+function getUsersByFacebookIds(facebookIds) {
+    var data = {
+        facebookIds: facebookIds
+    }
+    $.ajax({
+    url: "/getFriends",
+    type: "POST",
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    });
 }
+    getUsersByFacebookIds([3251335,2353253,12512521]);
+
+
