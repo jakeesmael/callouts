@@ -105,10 +105,6 @@ public class User extends Model{
 
     public void setFacebookId(BigInteger facebookId) { this.facebookId = facebookId; }
 
-    public BigInteger getFacebookId() {
-    	return facebookId;
-    }
-
     public String getPictureUrl() { return pictureUrl; }
 
     public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl; }

@@ -36,9 +36,13 @@ $(document).ready(function() {
         autoclose: true,
         startDate: nowDate
     });
+
+    $('#friends-button').click(function() {
+        getUsersByFacebookIds(getFbFriends());
+    })
 });
 
-function getFbFriends(userId) {
+function getFbFriends() {
     FB.getLoginStatus(function(response) {
         // The response object is returned with a status field that lets the
         // app know the current login status of the person.
@@ -56,14 +60,15 @@ function getFbFriends(userId) {
                     } else {
                         return [];
                     }
-                );
-            } else {
-                // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
-                console.log("You're not connected to Facebook!");
-                return [];
-            }
-        });
-    };
+                }
+            );
+        } else {
+            // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
+            console.log("You're not connected to Facebook!");
+            return [];
+        }
+    });
+};
 
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -73,17 +78,17 @@ function getFbFriends(userId) {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    function getUsersByFacebookIds(facebookIds) {
-        var data = {
-            facebookIds: facebookIds
-        }
-        $.ajax({
-        url: "/getFriends",
-        type: "POST",
-        data: JSON.stringify(facebookIds),
-        contentType: "application/json"
-        });
+function getUsersByFacebookIds(facebookIds) {
+    var data = {
+        facebookIds: facebookIds
     }
+    $.ajax({
+    url: "/getFriends",
+    type: "POST",
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    });
+}
     getUsersByFacebookIds([3251335,2353253,12512521]);
-});
+
 

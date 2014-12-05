@@ -22,6 +22,8 @@ import java.util.Calendar;
 import java.math.BigInteger;
 import java.lang.Iterable;
 
+import com.google.gson.*;
+
 import static controllers.BetController.*;
 import static controllers.ChallengeController.*;
 import static controllers.UserController.*;
