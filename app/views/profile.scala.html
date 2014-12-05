@@ -96,9 +96,10 @@
 											<p class="challenger-level">LVL: @s.getChallenger().getLevel()</p>
 										</div>
 										<div class="challenge-content">
-											<h3 class="challenge-description">
-												@s.getSubject() by @s.getTime() at @s.getLocation()
-											</h3>
+											<div class="challenge-description" >
+		                                        <h3>@s.getSubject() by @s.getTime().</h3>
+		                                        <p style="text-align: center">Time remaining: @s.getTimeRemaining()</p>
+		                                    </div>
 											<div class="challenge-stats">
 												<div class="challenge-left-odds">
 													<h4 class="challenge-left-percent">@s.getOdds() %</h4>
@@ -131,9 +132,10 @@
 											<p class="challenger-level">LVL: @r.getChallenger().getLevel()</p>
 										</div>
 										<div class="challenge-content">
-											<h3 class="challenge-description" >
-												@r.getSubject() by @r.getTime() at @r.getLocation()
-											</h3>
+											<div class="challenge-description" >
+		                                        <h3>@r.getSubject() by @r.getTime().</h3>
+		                                        <p style="text-align: center">Time remaining: @r.getTimeRemaining()</p>
+		                                    </div>
 											<div class="challenge-stats">
 												<div class="challenge-left-odds">
 													<h4 class="challenge-left-percent">@r.getOdds() %</h4>

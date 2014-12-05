@@ -13,12 +13,16 @@ import play.Play;
 import play.data.Form;
 import play.data.DynamicForm;
 import play.libs.Crypto;
+import play.libs.Json;
 import play.mvc.*;
 
+import java.util.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
 import java.math.BigInteger;
+import java.lang.Iterable;
 
 import static controllers.BetController.getPlacedBetsChallenges;
 import static controllers.UserController.*;
@@ -319,6 +323,30 @@ public class Callouts extends Controller {
 		} else {
 			return ok(views.html.profile.render(user, profileUser, sentChallenges, receivedChallenges, bets));
 		}
+	}
+
+	@Security.Authenticated(Secured.class)
+	public static Result getFriends() {
+		Http.Cookie sessionCookie = request().cookies().get("session_id");
+		String username = Crypto.decryptAES(sessionCookie.value());
+		User user = UserController.getUserByUsername(username);
+		BigInteger facebookId = user.getFacebookId();
+		JsonNode json = request().body().asJson();
+		Iterator<JsonNode> iterator = json.findPath("friendIds").elements();
+		List<BigInteger> friendIds = new ArrayList<BigInteger>();
+		while (iterator.hasNext()) {
+			Long num = new Long(iterator.next().asLong());
+			String stringVar = num.toString();
+			BigInteger id = new BigInteger( stringVar );
+			friendIds.add(id);
+		}
+		List<User> friends = getFriendsByFacebookIds(friendIds);
+		
+
+
+		return ok();
+
+		//given your a list of friendIds write a query that returns a list of users who facebook friend IDs are in the user database
 	}
 
 	@Security.Authenticated(Secured.class)

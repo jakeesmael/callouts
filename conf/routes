@@ -20,6 +20,8 @@ POST        /editSettings                           controllers.Callouts.editSet
 GET         /:username                              controllers.Callouts.profile(username)
 POST        /challenge                              controllers.Callouts.challengePost()
 
+GET 		/getFriends								controllers.Callouts.getFriends()
+
 POST        /challengeDelete                        controllers.Callouts.challengeDelete(challenger, challenged, time)
 POST        /challengeUpdateTime                    controllers.Callouts.challengeUpdateTime(challenger, challenged, time, challengeId)
 

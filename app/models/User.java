@@ -101,6 +101,10 @@ public class User extends Model{
 
     public void setFacebookId(BigInteger facebookId) { this.facebookId = facebookId; }
 
+    public BigInteger getFacebookId() {
+    	return facebookId;
+    }
+
 	public static Model.Finder<Long,User> find = new Model.Finder<Long,User>(
 		Long.class, User.class
 	);

@@ -54,4 +54,17 @@ $(document).ready(function() {
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    function getUsersByFacebookIds(facebookIds) {
+        var data = {
+            facebookIds: facebookIds
+        }
+        $.ajax({
+        url: "/getFriends",
+        type: "POST",
+        data: JSON.stringify(facebookIds),
+        contentType: "application/json"
+        });
+    }
+    getUsersByFacebookIds([3251335,2353253,12512521]);
 });

@@ -14,6 +14,7 @@ import play.mvc.*;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
+import java.util.ArrayList;
 import java.math.BigInteger;
 
 import static controllers.Callouts.getCurrentUsername;
@@ -36,6 +37,7 @@ public class UserController extends Controller {
 			.columnMapping("losses", "losses")
 			.columnMapping("level", "level")
 			.columnMapping("email", "email")
+			.columnMapping("facebookId", "facebookId")
 			.create();
 		Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
 		List<User> userList = query.findList();
@@ -135,4 +137,60 @@ public class UserController extends Controller {
         SqlUpdate update = Ebean.createSqlUpdate(sql);
         update.execute();
     }
+
+    public static User getUserByFacebookId(BigInteger facebookId) {
+    	String sql = "select * from users where facebookId = \"" + facebookId + "\";";
+		RawSql rawSql = RawSqlBuilder.unparsed(sql)
+			.columnMapping("username", "username")
+			.columnMapping("password", "password")
+			.columnMapping("name", "name")
+			.columnMapping("points", "points")
+			.columnMapping("wins", "wins")
+			.columnMapping("losses", "losses")
+			.columnMapping("level", "level")
+			.columnMapping("email", "email")
+			.columnMapping("facebookId", "facebookId")
+			.create();
+		Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
+		List<User> userList = query.findList();
+
+		User user;
+		if (userList.isEmpty())
+			user = null;
+		else
+			user = userList.get(0);
+
+		return user;
+	}
+
+
+//given a list of friendIds write a query that returns a list of users who facebook friend IDs are in the user database
+
+	public static List<User> getFriendsByFacebookIds(List<BigInteger> friendIds) {
+		List<User> friends = new ArrayList<User>();
+		for (BigInteger facebookId : friendIds) {
+			String sql = "select * from users where facebookId = \"" + facebookId + "\";";
+			RawSql rawSql = RawSqlBuilder.unparsed(sql)
+				.columnMapping("username", "username")
+				.columnMapping("password", "password")
+				.columnMapping("name", "name")
+				.columnMapping("points", "points")
+				.columnMapping("wins", "wins")
+				.columnMapping("losses", "losses")
+				.columnMapping("level", "level")
+				.columnMapping("email", "email")
+				.columnMapping("facebookId", "facebookId")
+				.create();
+			Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
+			List<User> userList = query.findList();
+			User user;
+			if (userList.isEmpty())
+				user = null;
+			else {
+				user = userList.get(0);
+				friends.add(user);
+			}
+		}
+		return friends;
+	}
 }
