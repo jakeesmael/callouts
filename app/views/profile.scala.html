@@ -20,6 +20,7 @@
 	<title>Profile</title>
 </head>
 <body>
+	<div id="fb-root"></div>
 	<div class="overlay">
 		<div class="modal">
 			@helper.form(action = routes.Callouts.challengePost()) {
@@ -48,6 +49,7 @@
 		</div>
 	</div>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<input id="fb-id" type="hidden" value="@user.getFacebookId()">
 		<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
 		<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
 		<a class="nav-home nav-link" href="/">Callouts</a>

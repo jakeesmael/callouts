@@ -60,7 +60,7 @@ function addListeners() {
 		$(this).prev().hide();
 		$(this).prev().prev().show();
 	});
-    console.log("document loaded");
+
     /* Facebook Link */
     $(".fb-login").click(function() {
         FB.getLoginStatus(function(response) {

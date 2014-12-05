@@ -99,6 +99,8 @@ public class User extends Model{
 		this.email = email;
 	}
 
+    public BigInteger getFacebookId() { return facebookId; }
+
     public void setFacebookId(BigInteger facebookId) { this.facebookId = facebookId; }
 
 	public static Model.Finder<Long,User> find = new Model.Finder<Long,User>(
