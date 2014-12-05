@@ -7,8 +7,6 @@ import com.typesafe.plugin.MailerPlugin;
 import models.Bet;
 import models.User;
 import models.Challenge;
-import models.Bet;
-import models.BetData;
 import play.Play;
 import play.data.Form;
 import play.data.DynamicForm;
@@ -20,7 +18,8 @@ import java.util.List;
 import java.util.Calendar;
 import java.math.BigInteger;
 
-import static controllers.BetController.getPlacedBetsChallenges;
+import static controllers.BetController.*;
+import static controllers.ChallengeController.*;
 import static controllers.UserController.*;
 
 
@@ -210,7 +209,7 @@ public class Callouts extends Controller {
         String username = Crypto.decryptAES(sessionCookie.value());
         int challengeId = Integer.parseInt(Crypto.decryptAES(encryptedChallengeId));
         User user = UserController.getUserByUsername(username);
-        Challenge challenge = ChallengeController.getChallengeById(challengeId);
+        Challenge challenge = getChallengeById(challengeId);
 
         if (challenge == null) {
             return ok(views.html.error.render(user));
@@ -358,6 +357,16 @@ public class Callouts extends Controller {
                 break;
 		}
 
+		return ok();
+	}
+
+	@Security.Authenticated(Secured.class)
+	public static Result challengeDeclareWinner() {
+		JsonNode json = request().body().asJson();
+		int challengeId = json.findPath("challengeId").intValue();
+		String winner = json.findPath("winner").textValue();
+		declareWinner(challengeId, winner);
+		distributePoints(challengeId, winner);
 		return ok();
 	}
 }

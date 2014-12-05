@@ -16,8 +16,10 @@
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
-			<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+			<div class="pos-right">
+				<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+				<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
+			</div>
 			<a class="nav-home nav-link" href="/">Callouts</a>
 			<a href="/logout">Logout</a>
 		</div>
@@ -75,10 +77,20 @@
 						</div>
 						@if(user.getUsername() == challenge.getChallengedUsername() || user.getUsername() == challenge.getChallengerUsername()) {
 							@helper.form(action = routes.Callouts.challengeDelete(challenge.getChallengerUsername(), challenge.getChallengedUsername(), challenge.getTime().toString())) {
-								<input type="submit" value="Delete">
+								<input class="btn btn-default" type="submit" value="Delete">
 							}
 							@helper.form(action = routes.Callouts.challengeUpdateTime(challenge.getChallengerUsername(), challenge.getChallengedUsername(), challenge.getTime().toString(), Integer.toString(challenge.getChallengeId()))) {
-								<input type="submit" value="Update Time">
+								<input class="btn btn-default" type="submit" value="Update Time">
+							}
+							@if(challenge.getWinner == null) {
+								<button type="button" class="btn btn-primary declare" data-winner="" data-id="@challenge.getChallengeId()">
+									Declare Winner</button>
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default winner">@challenge.getChallengerUsername()</button>
+									<button type="button" class="btn btn-default winner">@challenge.getChallengedUsername()</button>
+								</div>
+							} else {
+								<h2>@challenge.getWinner() is the winner!</h2>
 							}
 						} else {
 							<input id="bet-button" type="submit" value="Place Bet"/>
@@ -88,5 +100,6 @@
 			</div>
 		</div>
 		<script src='@routes.Assets.at("javascripts/bets.js")' type="text/javascript"></script>
+		<script src='@routes.Assets.at("javascripts/challenge.js")' type="text/javascript"></script>
 	</body>
 </html>
