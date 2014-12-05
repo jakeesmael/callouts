@@ -60,22 +60,23 @@
 	<div class="container" id="content">
 		<div class = "row" id="content-row">
 			<div class = "col-sm-2">
-				<div class="sidebar-module sidebar-module-inset">
-					<h1>Profile picture</h1>
+				<div class="sidebar-module sidebar-module-inset sidebar">
+					@if(profileUser.getPictureUrl() != null) {
+						<img src="@profileUser.getPictureUrl()" class="image">
+					}
 					<ul class = "list-unstyled">
-						<li>Username</li>
-						<li><a href="#">Send Message</a></li>
+						<li>@profileUser.getUsername()</li>
 					</ul>
 				</div>
-				<div class="sidebar-module" id="statistics">
-					<ul class = "list-unstyled">
-						<li>Challenges Answered: 235</li>
-						<li>Win Ratio: 56.4% </li>
-						<li>Level: 36</li>
-						<li>Average points bet: 420</li>
-						<li>Other stats?</li>
-					</ul>
-				</div>
+				@*<div class="sidebar-module" id="statistics">*@
+					@*<ul class = "list-unstyled">*@
+						@*<li>Challenges Answered: 235</li>*@
+						@*<li>Win Ratio: 56.4% </li>*@
+						@*<li>Level: 36</li>*@
+						@*<li>Average points bet: 420</li>*@
+						@*<li>Other stats?</li>*@
+					@*</ul>*@
+				@*</div>*@
 				<div class="sidebar-module">
 					@if(user.getUsername != profileUser.getUsername()) {
 							<button class="btn btn-md btn-info" id="challenge-button">Challenge!</button>
