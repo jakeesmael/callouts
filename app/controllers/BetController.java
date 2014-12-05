@@ -4,12 +4,8 @@ package controllers;
  */
 import com.avaje.ebean.*;
 import models.Bet;
-import models.BetData;
 import models.Challenge;
-import models.User;
 import play.Play;
-import play.data.DynamicForm;
-import play.data.Form;
 import play.mvc.*;
 
 import java.sql.*;
