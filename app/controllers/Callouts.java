@@ -199,13 +199,16 @@ public class Callouts extends Controller {
 	public static void sendEmail(ChallengeForm challengeForm) {
 		User user = getUserByUsername(challengeForm.challengedUsername);
 		String challenger = challengeForm.challengerUsername;
+		String challenged = challengeForm.challengedUsername;
+		Timestamp time = challengeForm.time;
+		Challenge challenge = getChallenge(challenger, challenged, time);
 
 		if (user.getEmail() != null && !user.getEmail().isEmpty()) {
 			MailerAPI mail = Play.application().plugin(MailerPlugin.class).email();
 			mail.setSubject(challenger + " challenged you!");
 			mail.setRecipient(user.getEmail());
 			mail.setFrom("noreply@callouts.com");
-			mail.send(challenger + " challenged you!\nChallenge: " + challengeForm.subject);
+			mail.sendHtml(views.html.email.render(user, challenge).body());
 		}
 	}
 
