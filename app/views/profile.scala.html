@@ -21,6 +21,13 @@
 </head>
 <body>
 	<div id="fb-root"></div>
+	<div class="overlay" id="friends-overlay">
+	</div>
+	<div class="modal" id="friends-modal">
+		<div class="row" id="friends-row">
+		</div>
+	</div>
+
 	<div class="overlay">
 		<div class="modal">
 			@helper.form(action = routes.Callouts.challengePost()) {
@@ -96,7 +103,10 @@
 									<li class="newsfeed-item">
 										<div class="challenger">
 											<p class="challenger-wager">@s.getWager()</p>
-											<div class="challenger-icon"></div>
+											<div class="challenger-icon">
+												@if(s.getChallenger().getPictureUrl() != null) {
+												<img src="@s.getChallenger().getPictureUrl()" class="image">
+											}</div>
 											<a class="challenger-name" href="/@s.getChallengerUsername()">@s.getChallengerUsername()</a>
 											<p class="challenger-level">LVL: @s.getChallenger().getLevel()</p>
 										</div>
@@ -117,7 +127,10 @@
 										</div>
 										<div class="challenger">
 											<p class="challenger-wager">@s.getWager()</p>
-											<div class="challenger-icon"></div>
+											<div class="challenger-icon">
+												@if(s.getChallenged().getPictureUrl() != null) {
+												<img src="@s.getChallenged().getPictureUrl()" class="image">
+											}</div>
 											<a class="challenger-name" href="/@s.getChallengedUsername()">@s.getChallengedUsername()</a>
 											<p class="challenger-level">LVL: @s.getChallenged().getLevel()</p>
 										</div>
@@ -132,7 +145,10 @@
 									<li class="newsfeed-item">
 										<div class="challenger">
 											<p class="challenger-wager">@r.getWager()</p>
-											<div class="challenger-icon"></div>
+											<div class="challenger-icon">
+												@if(r.getChallenger().getPictureUrl() != null) {
+												<img src="@r.getChallenged().getPictureUrl()" class="image">
+											}</div>
 											<a class="challenger-name" href="/@r.getChallengerUsername()">@r.getChallengerUsername()</a>
 											<p class="challenger-level">LVL: @r.getChallenger().getLevel()</p>
 										</div>
@@ -153,7 +169,10 @@
 										</div>
 										<div class="challenger">
 											<p class="challenger-wager">@r.getWager()</p>
-											<div class="challenger-icon"></div>
+											<div class="challenger-icon">
+												@if(r.getChallenged().getPictureUrl() != null) {
+												<img src="@r.getChallenged().getPictureUrl()" class="image">
+											}</div>
 											<a class="challenger-name" href="/@r.getChallengedUsername()">@r.getChallengedUsername()</a>
 											<p class="challenger-level">LVL: @r.getChallenged.getLevel()</p>
 										</div>
@@ -174,12 +193,13 @@
 								} else {
 									@for(b <- bets) {
 										<div class="col-md-6" id="bet-challenger">
-											<div class="bet-challenger-icon"></div>
+											<!-- <div class="bet-challenger-icon">
+											</div> -->
 											<a class="challenger-name" id="bet-challenger-name" href="/@b.getChallenge().getChallengerUsername()">@b.getChallenge().getChallengerUsername()</a>
 											<!-- <p class="challenger-level">LVL: #</p> -->
 										</div>
 										<div class="col-md-6" id="bet-challenger">
-											<div class="bet-challenger-icon"></div>
+											<!-- <div class="bet-challenger-icon"></div> -->
 											<a class="challenger-name" id="bet-challenger-name" href="/@b.getChallenge().getChallengedUsername()">@b.getChallenge().getChallengedUsername()</a>
 											<!-- <p class="challenger-level">LVL: #</p> -->
 										</div>

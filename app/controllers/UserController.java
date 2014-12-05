@@ -188,7 +188,7 @@ public class UserController extends Controller {
 		List<User> friends = new ArrayList<User>();
 		for (BigInteger facebookId : friendIds) {
 			String idString = facebookId.toString();
-			String sql = "select * from users where facebook_id = \"" + idString + "\";";
+			String sql = "select username, password, name, points, wins, losses, level, email, facebook_id, picture_url from users where facebook_id = \"" + idString + "\";";
 			RawSql rawSql = RawSqlBuilder.parse(sql)
 				.columnMapping("username", "username")
 				.columnMapping("password", "password")

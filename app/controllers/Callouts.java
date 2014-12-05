@@ -2,6 +2,8 @@ package controllers;
 
 import com.avaje.ebean.*;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
 import models.Bet;
@@ -333,20 +335,25 @@ public class Callouts extends Controller {
 		User user = UserController.getUserByUsername(username);
 		BigInteger facebookId = user.getFacebookId();
 		JsonNode json = request().body().asJson();
-		Iterator<JsonNode> iterator = json.findPath("friendIds").elements();
+		Iterator<JsonNode> iterator = json.findPath("facebookIds").elements();
 		List<BigInteger> friendIds = new ArrayList<BigInteger>();
 		while (iterator.hasNext()) {
-			Long num = new Long(iterator.next().asLong());
-			String stringVar = num.toString();
+			String stringVar = iterator.next().textValue();
 			BigInteger id = new BigInteger( stringVar );
 			friendIds.add(id);
-			System.out.println(stringVar);
 		}
 		List<User> friends = getFriendsByFacebookIds(friendIds);
-		friends.add(user);
+		String friendsJson="";
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try {
+		friendsJson = ow.writeValueAsString(friends);
 
-		System.out.println(friends);
-		return ok();
+		} catch (Exception e){
+			System.out.println("Error in processing friends");
+		}
+		/*String friendsJson = new Gson().toJson(friends);*/
+    	System.out.println(friendsJson);
+		return ok(friendsJson);
 
 		//given your a list of friendIds write a query that returns a list of users who facebook friend IDs are in the user database
 	}
