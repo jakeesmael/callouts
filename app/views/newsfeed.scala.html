@@ -32,7 +32,11 @@
                             <li class="newsfeed-item">
                                 <div class="challenger">
                                     <p class="challenger-wager">@s.getWager()</p>
-                                    <div class="challenger-icon"></div>
+                                    <div class="challenger-icon">
+																			@if(@user.getPictureUrl() != null) {
+																				<img src="@user.getPictureUrl()">
+																			}
+                                    </div>
                                     <a class="challenger-name" href="/@s.getChallengerUsername()">@s.getChallengerUsername()</a>
                                     <p class="challenger-level">LVL: @s.getChallenger().getLevel()</p>
                                 </div>
