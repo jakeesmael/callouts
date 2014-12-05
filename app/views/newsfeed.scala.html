@@ -33,8 +33,8 @@
                                 <div class="challenger">
                                     <p class="challenger-wager">@s.getWager()</p>
                                     <div class="challenger-icon">
-																			@if(user.getPictureUrl() != null) {
-																				<img src="@user.getPictureUrl()">
+																			@if(s.getChallenger().getPictureUrl() != null) {
+																				<img src="@s.getChallenger().getPictureUrl()">
 																			}
                                     </div>
                                     <a class="challenger-name" href="/@s.getChallengerUsername()">@s.getChallengerUsername()</a>
@@ -56,7 +56,11 @@
                                 </div>
                                 <div class="challenger">
                                     <p class="challenger-wager">@s.getWager()</p>
-                                    <div class="challenger-icon"></div>
+                                    <div class="challenger-icon">
+																			@if(s.getChallenged().getPictureUrl() != null) {
+																				<img src="@s.getChallenged().getPictureUrl()">
+																			}
+                                    </div>
                                     <a class="challenger-name" href="/@s.getChallengedUsername()">@s.getChallengedUsername()</a>
                                     <p class="challenger-level">LVL: @s.getChallenged().getLevel()</p>
                                 </div>
