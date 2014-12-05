@@ -187,8 +187,9 @@ public class UserController extends Controller {
 	public static List<User> getFriendsByFacebookIds(List<BigInteger> friendIds) {
 		List<User> friends = new ArrayList<User>();
 		for (BigInteger facebookId : friendIds) {
-			String sql = "select * from users where facebookId = \"" + facebookId + "\";";
-			RawSql rawSql = RawSqlBuilder.unparsed(sql)
+			String idString = facebookId.toString();
+			String sql = "select * from users where facebook_id = \"" + idString + "\";";
+			RawSql rawSql = RawSqlBuilder.parse(sql)
 				.columnMapping("username", "username")
 				.columnMapping("password", "password")
 				.columnMapping("name", "name")
@@ -197,7 +198,8 @@ public class UserController extends Controller {
 				.columnMapping("losses", "losses")
 				.columnMapping("level", "level")
 				.columnMapping("email", "email")
-				.columnMapping("facebookId", "facebookId")
+				.columnMapping("facebook_id", "facebookId")
+				.columnMapping("picture_url", "pictureUrl")
 				.create();
 			Query<User> query = Ebean.find(User.class).setRawSql(rawSql);
 			List<User> userList = query.findList();

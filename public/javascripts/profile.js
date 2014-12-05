@@ -89,6 +89,4 @@ function getUsersByFacebookIds(facebookIds) {
     contentType: "application/json",
     });
 }
-    getUsersByFacebookIds([3251335,2353253,12512521]);
-
 

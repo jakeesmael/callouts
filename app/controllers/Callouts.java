@@ -340,11 +340,12 @@ public class Callouts extends Controller {
 			String stringVar = num.toString();
 			BigInteger id = new BigInteger( stringVar );
 			friendIds.add(id);
+			System.out.println(stringVar);
 		}
 		List<User> friends = getFriendsByFacebookIds(friendIds);
-		
+		friends.add(user);
 
-
+		System.out.println(friends);
 		return ok();
 
 		//given your a list of friendIds write a query that returns a list of users who facebook friend IDs are in the user database
