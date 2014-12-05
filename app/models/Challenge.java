@@ -112,6 +112,15 @@ public class Challenge extends Model {
 		Long.class, Challenge.class
 	);
 
+	public String getTimeRemaining() {
+		int timeRemaining =  (int)(time.getTime()/1000 - System.currentTimeMillis()/1000);
+		int hours = timeRemaining / 3600;
+		int minutes = (timeRemaining % 3600) / 60;
+		int seconds = timeRemaining % 60;
+		String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+		return timeString;
+	}
+
     public User getChallenger() { return UserController.getUserByUsername(getChallengerUsername()); }
 
     public User getChallenged() { return UserController.getUserByUsername(getChallengedUsername()); }
