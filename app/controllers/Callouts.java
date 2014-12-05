@@ -16,6 +16,7 @@ import play.mvc.*;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Calendar;
+import java.math.BigInteger;
 
 import static controllers.BetController.*;
 import static controllers.ChallengeController.*;
@@ -350,6 +351,10 @@ public class Callouts extends Controller {
 			case "password":
 				updatePassword(json.findPath("input").textValue());
 				break;
+            case "facebookId":
+                System.out.println("setting facebook ID in callouts.java");
+                updateFacebookId(new BigInteger(json.findPath("input").textValue()));
+                break;
 		}
 
 		return ok();

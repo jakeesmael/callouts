@@ -31,7 +31,15 @@ $(document).ready(function() {
             // The response object is returned with a status field that lets the
             // app know the current login status of the person.
             if (response.status === 'connected') {
-                $("#fb-status").text("Your account is linked.");
+                /* make the API call */
+                FB.api(
+                    "/{user-id-a}/friends/{user-id-b}",
+                    function (response) {
+                        if (response && !response.error) {
+                            /* handle the result */
+                        }
+                    }
+                );
             } else {
                 // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
                 console.log("You're not connected to Facebook!");

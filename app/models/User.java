@@ -5,6 +5,8 @@ import javax.persistence.Table;
 
 import play.db.ebean.*;
 
+import java.math.BigInteger;
+
 /**
  * Created by jakeesmael on 10/20/14.
  */
@@ -19,6 +21,7 @@ public class User extends Model{
 	private Integer losses;
 	private Integer level;
 	private String email;
+    private BigInteger facebookId;
 
 	public User() {}
 
@@ -29,6 +32,7 @@ public class User extends Model{
 		this.wins = 0;
 		this.losses = 0;
 		this.level = 1;
+        this.facebookId = null;
 	}
 
 	public String getUsername() {
@@ -94,6 +98,8 @@ public class User extends Model{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+    public void setFacebookId(BigInteger facebookId) { this.facebookId = facebookId; }
 
 	public static Model.Finder<Long,User> find = new Model.Finder<Long,User>(
 		Long.class, User.class

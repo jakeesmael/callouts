@@ -14,6 +14,7 @@ import play.mvc.*;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
+import java.math.BigInteger;
 
 import static controllers.Callouts.getCurrentUsername;
 
@@ -128,5 +129,17 @@ public class UserController extends Controller {
 			" where username=\"" + username + "\";";
 		SqlUpdate update = Ebean.createSqlUpdate(sql);
 		update.execute();
+	}
+
+	/**
+	 * Updates the Facebook user ID of a user
+	 * @param facebookId - the user's Facebook ID
+	 */
+	public static void updateFacebookId(BigInteger facebookId) {
+			System.out.println("User controller setting facebook ID");
+			String username = getCurrentUsername();
+			String sql = "update users set facebook_id = \"" + facebookId + "\" where username = \"" + username + "\";";
+			SqlUpdate update = Ebean.createSqlUpdate(sql);
+			update.execute();
 	}
 }
