@@ -36,15 +36,6 @@ public class Challenge extends Model {
 		this.winner = winner;
 	}
 
-	public Challenge(String challengerUsername, String challengedUsername,
-									 int odds, Timestamp time, String subject) {
-		this.challengerUsername = challengerUsername;
-		this.challengedUsername = challengedUsername;
-		this.odds = odds;
-		this.time = time;
-		this.subject = subject;
-	}
-
 	public Integer getChallengeId() {
 		return challengeId;
 	}
@@ -122,7 +113,7 @@ public class Challenge extends Model {
 	);
 
 	public String getTimeRemaining() {
-		int timeRemaining =  (int)(time.getTime() - System.currentTimeMillis())/1000;
+		int timeRemaining =  (int)((time.getTime() - System.currentTimeMillis())/1000);
 		int hours = timeRemaining / 3600;
 		int minutes = (timeRemaining % 3600) / 60;
 		int seconds = timeRemaining % 60;
