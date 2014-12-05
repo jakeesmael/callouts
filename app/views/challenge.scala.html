@@ -52,7 +52,10 @@
 					<li class="newsfeed-item">
 						<div class="challenger">
 							<p class="challenger-wager">@challenge.getWager()</p>
-							<div class="challenger-icon"></div>
+							<div class="challenger-icon">
+								@if(challenge.getChallenger().getPictureUrl() != null) {
+								<img src="@challenge.getChallenger().getPictureUrl()" class="image">
+							}</div>
 							<a class="challenger-name" href="/@challenge.getChallengerUsername()">@challenge.getChallengerUsername()</a>
 							<p class="challenger-level">LVL: @challenge.getChallenger().getLevel()</p>
 						</div>
@@ -72,7 +75,9 @@
 						</div>
 						<div class="challenger">
 							<p class="challenger-wager">@challenge.getWager()</p>
-							<div class="challenger-icon"></div>
+							<div class="challenger-icon">@if(challenge.getChallenged().getPictureUrl() != null) {
+								<img src="@challenge.getChallenged().getPictureUrl()" class="image">
+							}</div>
 							<a class="challenger-name" href="/@challenge.getChallengedUsername()">@challenge.getChallengedUsername</a>
 							<p class="challenger-level">LVL: @challenge.getChallenged().getLevel()</p>
 						</div>

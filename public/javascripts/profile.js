@@ -19,13 +19,13 @@ $(document).ready(function() {
     }(document, 'script', 'facebook-jssdk'));
 
     $('#challenge-button').click(function() {
-        $('.overlay').fadeToggle("fast");
-        $('.modal').fadeToggle("fast");
+        $('#challenge-overlay').fadeToggle("fast");
+        $('#challenge-modal').fadeToggle("fast");
     });
 
     $('#cancel-button').click(function() {
-        $('.overlay').fadeToggle("fast");
-        $('.modal').fadeToggle("fast");
+        $('#challenge-overlay').fadeToggle("fast");
+        $('#challenge-modal').fadeToggle("fast");
     })
 
     var nowDate = new Date();
