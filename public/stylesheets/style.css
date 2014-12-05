@@ -18,11 +18,6 @@ html, body {
     line-height: 46px;
 }
 
-.nav-profile {
-    right: 0;
-    position: absolute;
-}
-
 .nav-link {
     font-size: 20px;
     margin: 0 10px;
@@ -32,8 +27,8 @@ html, body {
     text-decoration: none;
 }
 
-.settings-link {
-	right: 70px;
+.pos-right {
+	right: 0px;
 	position: absolute;
 }
 

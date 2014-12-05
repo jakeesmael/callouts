@@ -15,8 +15,10 @@
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+					<div class="pos-right">
+						<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
 						<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
-					<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+					</div>
 					<a class="nav-home nav-link" href="/">Callouts</a>
 						<a href="/logout">Logout</a>
         </div>
@@ -30,7 +32,11 @@
                             <li class="newsfeed-item">
                                 <div class="challenger">
                                     <p class="challenger-wager">@s.getWager()</p>
-                                    <div class="challenger-icon"></div>
+                                    <div class="challenger-icon">
+																			@if(user.getPictureUrl() != null) {
+																				<img src="@user.getPictureUrl()">
+																			}
+                                    </div>
                                     <a class="challenger-name" href="/@s.getChallengerUsername()">@s.getChallengerUsername()</a>
                                     <p class="challenger-level">LVL: @s.getChallenger().getLevel()</p>
                                 </div>
@@ -41,10 +47,10 @@
                                     </div>
                                     <div class="challenge-stats">
                                         <div class="challenge-left-odds">
-                                            <h4 class="challenge-left-percent">@s.getOdds() %</h4>
+                                            <h4 class="challenge-left-percent"></h4>
                                         </div>
                                         <div class="challenge-right-odds">
-                                            <h4 class="challenge-right-percent">@s.getOdds() %</h4>
+                                            <h4 class="challenge-right-percent"></h4>
                                         </div>
                                     </div>
 																		<a href="/challenge/@Crypto.encryptAES(Integer.toString(s.getChallengeId()))">See More</a>

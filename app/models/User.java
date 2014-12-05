@@ -22,6 +22,7 @@ public class User extends Model{
 	private Integer level;
 	private String email;
     private BigInteger facebookId;
+    private String pictureUrl;
 
 	public User() {}
 
@@ -33,6 +34,7 @@ public class User extends Model{
 		this.losses = 0;
 		this.level = 1;
         this.facebookId = null;
+        this.pictureUrl = null;
 	}
 
 	public String getUsername() {
@@ -99,11 +101,17 @@ public class User extends Model{
 		this.email = email;
 	}
 
+    public BigInteger getFacebookId() { return facebookId; }
+
     public void setFacebookId(BigInteger facebookId) { this.facebookId = facebookId; }
 
     public BigInteger getFacebookId() {
     	return facebookId;
     }
+
+    public String getPictureUrl() { return pictureUrl; }
+
+    public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl; }
 
 	public static Model.Finder<Long,User> find = new Model.Finder<Long,User>(
 		Long.class, User.class

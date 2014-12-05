@@ -27,6 +27,7 @@ POST        /challengeUpdateTime                    controllers.Callouts.challen
 
 #challenge page
 GET         /challenge/:encryptedChallengeId        controllers.Callouts.challengeGet(encryptedChallengeId)
+POST        /challenge/declare											controllers.Callouts.challengeDeclareWinner()
 
 POST        /bet                                    controllers.Callouts.betPost(challengeId)
-POST				/betDelete															controllers.Callouts.betDelete(betIdString, challengeId)
+POST        /betDelete                              controllers.Callouts.betDelete(betIdString, challengeId)

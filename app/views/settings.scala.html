@@ -17,8 +17,10 @@
 	<body>
 		<div id="fb-root"></div>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
-			<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+			<div class="pos-right">
+				<a class="settings-link" href="/settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+				<a class="nav-profile nav-link" href="/@user.getUsername()">@user.getUsername()</a>
+			</div>
 			<a class="nav-home nav-link" href="/">Callouts</a>
 			<a href="/logout">Logout</a>
 		</div>
@@ -58,7 +60,7 @@
 								<td class="col-md-2"><strong>Facebook Account</strong></td>
 								<td class="col-md-6"><p id="fb-status"></p></td>
 								<td class="col-md-2 fb-login">
-									<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="true" data-auto-logout-link="false" onlogin="checkLoginState();"></div>
+									<div class="fb-login-button" data-scope="email public_profile user_friends" data-max-rows="1" data-size="medium" data-show-faces="true" data-auto-logout-link="false" onlogin="checkLoginState();"></div>
 								</td>
 							</tr>
 						</table>
