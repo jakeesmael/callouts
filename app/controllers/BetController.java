@@ -7,6 +7,7 @@ import models.Bet;
 import models.BetData;
 import models.Challenge;
 import models.User;
+import play.Play;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
@@ -21,13 +22,13 @@ import static controllers.ChallengeController.getChallenge;
 public class BetController extends Controller {
 
 	// JDBC driver name and database URL
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://engr-cpanel-mysql.engr.illinois.edu/esmael2_callouts";
+//	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+//	/*static final String DB_URL = "jdbc:mysql://engr-cpanel-mysql.engr.illinois.edu/esmael2_callouts";*/
 //	static final String DB_URL="jdbc:mysql://localhost:3306/callouts";
 
 	//  Database credentials
-	static final String USER = "esmael2_callouts";
-	static final String PASS = "C@lloutspw";
+	// static final String USER = "esmael2_callouts";
+	// static final String PASS = "C@lloutspw";
 //	static final String USER="calloutsuser";
 //	static final String PASS="copw";
 
@@ -105,11 +106,14 @@ public class BetController extends Controller {
 
 		List<Bet> betList = new ArrayList<Bet>();
 		Connection con = null;
+		String dbUrl = Play.application().configuration().getString("db.default.url");
+		String user = Play.application().configuration().getString("db.default.user");
+		String pass = Play.application().configuration().getString("db.default.password");
 		try {
 			con = DriverManager.getConnection(
-				DB_URL,
-				USER,
-				PASS);
+				dbUrl,
+				user,
+				pass);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
