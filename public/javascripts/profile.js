@@ -48,22 +48,20 @@ function getFbFriends(userId) {
                 "/me/friends", { scope: "user_friends" },
                 function (response) {
                     if (response && !response.error) {
-                        console.log(response);
                         var friendIds = [];
                         for (var i = 0; i < response.data.length; i++) {
                             friendIds.push(response.data[i].id);
                         }
-                        console.log(friendIds);
                         return friendIds;
                     } else {
-                        return -1;
+                        return [];
                     }
                 }
             );
         } else {
             // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
             console.log("You're not connected to Facebook!");
-            return -1;
+            return [];
         }
     });
 }

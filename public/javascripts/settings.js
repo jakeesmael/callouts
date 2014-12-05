@@ -10,6 +10,22 @@ function checkLoginState() {
         // app know the current login status of the person.
         if (response.status === 'connected') {
             saveSettings("facebookId", response.authResponse.userID);
+            FB.api(
+                "/me/picture",
+                {
+                    "redirect": false,
+                    "height": "250",
+                    "type": "normal",
+                    "width": "250"
+                },
+                function(response) {
+                    if (response && !response.error) {
+                        saveSettings("pictureUrl", response.data.url);
+                    } else {
+                        return ""
+                    }
+                }
+            );
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not the app.
             $("#fb-status").text("Your account is not linked.")

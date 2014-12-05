@@ -352,8 +352,10 @@ public class Callouts extends Controller {
 				updatePassword(json.findPath("input").textValue());
 				break;
             case "facebookId":
-                System.out.println("setting facebook ID in callouts.java");
                 updateFacebookId(new BigInteger(json.findPath("input").textValue()));
+                break;
+            case "pictureUrl":
+                updatePictureUrl(json.findPath("input").textValue());
                 break;
 		}
 

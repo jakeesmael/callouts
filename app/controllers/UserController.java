@@ -132,14 +132,24 @@ public class UserController extends Controller {
 	}
 
 	/**
-	 * Updates the Facebook user ID of a user
+	 * Updates the Facebook user ID of a user.
 	 * @param facebookId - the user's Facebook ID
 	 */
 	public static void updateFacebookId(BigInteger facebookId) {
-			System.out.println("User controller setting facebook ID");
-			String username = getCurrentUsername();
-			String sql = "update users set facebook_id = \"" + facebookId + "\" where username = \"" + username + "\";";
-			SqlUpdate update = Ebean.createSqlUpdate(sql);
-			update.execute();
+        String username = getCurrentUsername();
+        String sql = "update users set facebook_id = \"" + facebookId + "\" where username = \"" + username + "\";";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
+        update.execute();
 	}
+
+    /**
+     * Updates the profile picture URL of a user.
+     * @param pictureUrl - the user's profile picture URL
+     */
+    public static void updatePictureUrl(String pictureUrl) {
+        String username = getCurrentUsername();
+        String sql = "update users set picture_url = \"" + pictureUrl + "\" where username = \"" + username + "\";";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
+        update.execute();
+    }
 }
